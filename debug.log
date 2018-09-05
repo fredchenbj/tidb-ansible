@@ -1,0 +1,278 @@
+ 57439 1535706957.75409: starting run
+ 57439 1535706957.89507: Added group all to inventory
+ 57439 1535706957.89531: Added group ungrouped to inventory
+ 57439 1535706957.89546: Group all now contains ungrouped
+ 57439 1535706957.89695: Loading InventoryModule 'host_list' from /usr/lib/python2.7/site-packages/ansible/plugins/inventory/host_list.py
+ 57439 1535706957.89801: assigned :doc
+ 57439 1535706957.89816: assigned :plainexamples
+ 57439 1535706957.89856: Loading InventoryModule 'script' from /usr/lib/python2.7/site-packages/ansible/plugins/inventory/script.py
+ 57439 1535706957.90124: assigned :doc
+ 57439 1535706957.90158: Loaded config def from plugin (inventory/script)
+ 57439 1535706957.90202: Loading InventoryModule 'yaml' from /usr/lib/python2.7/site-packages/ansible/plugins/inventory/yaml.py
+ 57439 1535706957.90399: assigned :doc
+ 57439 1535706957.90414: assigned :plainexamples
+ 57439 1535706957.90435: Loaded config def from plugin (inventory/yaml)
+ 57439 1535706957.90485: Loading InventoryModule 'ini' from /usr/lib/python2.7/site-packages/ansible/plugins/inventory/ini.py
+ 57439 1535706957.90774: assigned :doc
+ 57439 1535706957.90788: assigned :plainexamples
+ 57439 1535706957.90834: Loading InventoryModule 'auto' from /usr/lib/python2.7/site-packages/ansible/plugins/inventory/auto.py
+ 57439 1535706957.90906: assigned :doc
+ 57439 1535706957.90920: assigned :plainexamples
+ 57439 1535706957.90940: Examining possible inventory source: /home/worker/tidb-ansible/test.hosts2
+ 57439 1535706957.90955: Attempting to use plugin host_list (/usr/lib/python2.7/site-packages/ansible/plugins/inventory/host_list.py)
+ 57439 1535706957.90967: /home/worker/tidb-ansible/test.hosts2 did not meet host_list requirements
+ 57439 1535706957.90977: Attempting to use plugin script (/usr/lib/python2.7/site-packages/ansible/plugins/inventory/script.py)
+ 57439 1535706957.90991: /home/worker/tidb-ansible/test.hosts2 did not meet script requirements
+ 57439 1535706957.91002: Attempting to use plugin yaml (/usr/lib/python2.7/site-packages/ansible/plugins/inventory/yaml.py)
+ 57439 1535706957.91014: /home/worker/tidb-ansible/test.hosts2 did not meet yaml requirements
+ 57439 1535706957.91024: Attempting to use plugin ini (/usr/lib/python2.7/site-packages/ansible/plugins/inventory/ini.py)
+ 57439 1535706957.91293: set inventory_file for 10.120.195.2
+ 57439 1535706957.91310: set inventory_dir for 10.120.195.2
+ 57439 1535706957.91321: Added host 10.120.195.2 to inventory
+ 57439 1535706957.91334: Added host 10.120.195.2 to group ungrouped
+ 57439 1535706957.91352: set ansible_user for all
+ 57439 1535706957.91364: Reconcile groups and hosts in inventory.
+ 57439 1535706957.91480: Loading CacheModule 'jsonfile' from /usr/lib/python2.7/site-packages/ansible/plugins/cache/jsonfile.py
+ 57439 1535706957.91655: assigned :doc
+ 57439 1535706957.91674: Loaded config def from plugin (cache/jsonfile)
+ 57439 1535706957.98641: Loading CallbackModule 'minimal' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/minimal.py
+ 57439 1535706957.98802: assigned :doc
+ 57439 1535706957.98899: Loading CallbackModule 'actionable' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/actionable.py (found_in_cache=False, class_only=True)
+ 57439 1535706957.98986: assigned :doc
+ 57439 1535706957.99211: Loading ModuleDocFragment 'default_callback' from /usr/lib/python2.7/site-packages/ansible/utils/module_docs_fragments/default_callback.py
+ 57439 1535706957.99285: Loaded config def from plugin (callback/actionable)
+ 57439 1535706957.99315: Loading CallbackModule 'context_demo' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/context_demo.py (found_in_cache=False, class_only=True)
+ 57439 1535706957.99387: assigned :doc
+ 57439 1535706957.99422: Loading CallbackModule 'debug' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/debug.py (found_in_cache=False, class_only=True)
+ 57439 1535706957.99493: assigned :doc
+ 57439 1535706957.99513: Loading ModuleDocFragment 'default_callback' from /usr/lib/python2.7/site-packages/ansible/utils/module_docs_fragments/default_callback.py (found_in_cache=True, class_only=False)
+ 57439 1535706957.99581: Loaded config def from plugin (callback/debug)
+ 57439 1535706957.99598: Loading CallbackModule 'default' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/default.py (found_in_cache=False, class_only=True)
+ 57439 1535706957.99996: assigned :doc
+ 57439 1535706958.00039: Loading ModuleDocFragment 'default_callback' from /usr/lib/python2.7/site-packages/ansible/utils/module_docs_fragments/default_callback.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.00107: Loaded config def from plugin (callback/default)
+ 57439 1535706958.00155: Loading CallbackModule 'dense' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/dense.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.01907: assigned :doc
+ 57439 1535706958.01960: Loading ModuleDocFragment 'default_callback' from /usr/lib/python2.7/site-packages/ansible/utils/module_docs_fragments/default_callback.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.02030: Loaded config def from plugin (callback/dense)
+ 57439 1535706958.04992: Loading CallbackModule 'foreman' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/foreman.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.05297: assigned :doc
+ 57439 1535706958.05327: Loaded config def from plugin (callback/foreman)
+ 57439 1535706958.05358: Loading CallbackModule 'full_skip' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/full_skip.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.05441: assigned :doc
+ 57439 1535706958.05464: Loading ModuleDocFragment 'default_callback' from /usr/lib/python2.7/site-packages/ansible/utils/module_docs_fragments/default_callback.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.05530: Loaded config def from plugin (callback/full_skip)
+ 57439 1535706958.06263: Loading CallbackModule 'hipchat' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/hipchat.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.06601: assigned :doc
+ 57439 1535706958.06630: Loaded config def from plugin (callback/hipchat)
+ 57439 1535706958.06672: Loading CallbackModule 'jabber' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/jabber.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.06845: assigned :doc
+ 57439 1535706958.06869: Loaded config def from plugin (callback/jabber)
+ 57439 1535706958.06899: Loading CallbackModule 'json' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/json.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.06984: assigned :doc
+ 57439 1535706958.07045: Loading CallbackModule 'junit' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/junit.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.07413: assigned :doc
+ 57439 1535706958.07447: Loaded config def from plugin (callback/junit)
+ 57439 1535706958.07480: Loading CallbackModule 'log_plays' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/log_plays.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.07574: assigned :doc
+ 57439 1535706958.07640: Loading CallbackModule 'logentries' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/logentries.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.08008: assigned :doc
+ 57439 1535706958.08023: assigned :plainexamples
+ 57439 1535706958.08051: Loaded config def from plugin (callback/logentries)
+ 57439 1535706958.08096: Loading CallbackModule 'logstash' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/logstash.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.08299: assigned :doc
+ 57439 1535706958.08325: Loaded config def from plugin (callback/logstash)
+ 57439 1535706958.08413: Loading CallbackModule 'mail' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/mail.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.08746: assigned :doc
+ 57439 1535706958.08776: Loaded config def from plugin (callback/mail)
+ 57439 1535706958.08792: Loading CallbackModule 'minimal' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/minimal.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.08895: assigned :doc
+ 57439 1535706958.08934: Loading CallbackModule 'null' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/null.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.08983: assigned :doc
+ 57439 1535706958.09017: Loading CallbackModule 'oneline' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/oneline.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.09144: assigned :doc
+ 57439 1535706958.09187: Loading CallbackModule 'osx_say' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/osx_say.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.09278: assigned :doc
+ 57439 1535706958.09320: Loading CallbackModule 'profile_roles' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/profile_roles.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.09451: assigned :doc
+ 57439 1535706958.09497: Loading CallbackModule 'profile_tasks' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/profile_tasks.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.09713: assigned :doc
+ 57439 1535706958.09727: assigned :plainexamples
+ 57439 1535706958.09752: Loaded config def from plugin (callback/profile_tasks)
+ 57439 1535706958.09790: Loading CallbackModule 'selective' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/selective.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.10099: assigned :doc
+ 57439 1535706958.10114: assigned :plainexamples
+ 57439 1535706958.10147: Loaded config def from plugin (callback/selective)
+ 57439 1535706958.10177: Loading CallbackModule 'skippy' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/skippy.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.10229: assigned :doc
+ 57439 1535706958.10248: Loading ModuleDocFragment 'default_callback' from /usr/lib/python2.7/site-packages/ansible/utils/module_docs_fragments/default_callback.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.10317: Loaded config def from plugin (callback/skippy)
+ 57439 1535706958.10359: Loading CallbackModule 'slack' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/slack.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.10594: assigned :doc
+ 57439 1535706958.10621: Loaded config def from plugin (callback/slack)
+ 57439 1535706958.10653: Loading CallbackModule 'stderr' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/stderr.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.10746: assigned :doc
+ 57439 1535706958.10769: Loading ModuleDocFragment 'default_callback' from /usr/lib/python2.7/site-packages/ansible/utils/module_docs_fragments/default_callback.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.10835: Loaded config def from plugin (callback/stderr)
+ 57439 1535706958.10929: Loading CallbackModule 'syslog_json' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/syslog_json.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.11089: assigned :doc
+ 57439 1535706958.11111: Loaded config def from plugin (callback/syslog_json)
+ 57439 1535706958.11140: Loading CallbackModule 'timer' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/timer.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.11206: assigned :doc
+ 57439 1535706958.11243: Loading CallbackModule 'tree' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/tree.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.11322: assigned :doc
+ 57439 1535706958.11365: Loading CallbackModule 'unixy' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/unixy.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.11576: assigned :doc
+ 57439 1535706958.11609: Loading ModuleDocFragment 'default_callback' from /usr/lib/python2.7/site-packages/ansible/utils/module_docs_fragments/default_callback.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.11677: Loaded config def from plugin (callback/unixy)
+ 57439 1535706958.11724: Loading CallbackModule 'yaml' from /usr/lib/python2.7/site-packages/ansible/plugins/callback/yaml.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.11863: assigned :doc
+ 57439 1535706958.11889: Loading ModuleDocFragment 'default_callback' from /usr/lib/python2.7/site-packages/ansible/utils/module_docs_fragments/default_callback.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.11957: Loaded config def from plugin (callback/yaml)
+ 57439 1535706958.11973: in VariableManager get_vars()
+ 57439 1535706958.13678: Loading FilterModule 'core' from /usr/lib/python2.7/site-packages/ansible/plugins/filter/core.py
+ 57439 1535706958.13746: Loading FilterModule 'ipaddr' from /usr/lib/python2.7/site-packages/ansible/plugins/filter/ipaddr.py
+ 57439 1535706958.13953: Loading FilterModule 'json_query' from /usr/lib/python2.7/site-packages/ansible/plugins/filter/json_query.py
+ 57439 1535706958.13989: Loading FilterModule 'mathstuff' from /usr/lib/python2.7/site-packages/ansible/plugins/filter/mathstuff.py
+ 57439 1535706958.14244: Loading FilterModule 'network' from /usr/lib/python2.7/site-packages/ansible/plugins/filter/network.py
+ 57439 1535706958.14274: Loading FilterModule 'urlsplit' from /usr/lib/python2.7/site-packages/ansible/plugins/filter/urlsplit.py
+ 57439 1535706958.14364: Loading TestModule 'core' from /usr/lib/python2.7/site-packages/ansible/plugins/test/core.py
+ 57439 1535706958.14392: Loading TestModule 'files' from /usr/lib/python2.7/site-packages/ansible/plugins/test/files.py
+ 57439 1535706958.14418: Loading TestModule 'mathstuff' from /usr/lib/python2.7/site-packages/ansible/plugins/test/mathstuff.py
+ 57439 1535706958.14734: done with get_vars()
+ 57439 1535706958.15517: Loading StrategyModule 'linear' from /usr/lib/python2.7/site-packages/ansible/plugins/strategy/linear.py
+ 57439 1535706958.15570: getting the remaining hosts for this loop
+ 57439 1535706958.15587: done getting the remaining hosts for this loop
+ 57439 1535706958.15601: building list of next tasks for hosts
+ 57439 1535706958.15612: getting the next task for host 10.120.195.2
+ 57439 1535706958.15625: done getting next task for host 10.120.195.2
+ 57439 1535706958.15638:  ^ task is: TASK: meta (flush_handlers)
+ 57439 1535706958.15650:  ^ state is: HOST STATE: block=1, task=1, rescue=0, always=0, run_state=ITERATING_TASKS, fail_state=FAILED_NONE, pending_setup=False, tasks child state? (None), rescue child state? (None), always child state? (None), did rescue? False, did start at task? False
+ 57439 1535706958.15661: done building task lists
+ 57439 1535706958.15670: counting tasks in each state of execution
+ 57439 1535706958.15681: done counting tasks in each state of execution:
+	num_setups: 0
+	num_tasks: 1
+	num_rescue: 0
+	num_always: 0
+ 57439 1535706958.15690: advancing hosts in ITERATING_TASKS
+ 57439 1535706958.15700: starting to advance hosts
+ 57439 1535706958.15709: getting the next task for host 10.120.195.2
+ 57439 1535706958.15720: done getting next task for host 10.120.195.2
+ 57439 1535706958.15732:  ^ task is: TASK: meta (flush_handlers)
+ 57439 1535706958.15743:  ^ state is: HOST STATE: block=1, task=1, rescue=0, always=0, run_state=ITERATING_TASKS, fail_state=FAILED_NONE, pending_setup=False, tasks child state? (None), rescue child state? (None), always child state? (None), did rescue? False, did start at task? False
+ 57439 1535706958.15754: done advancing hosts to next task
+ 57439 1535706958.15771: done queuing things up, now waiting for results queue to drain
+ 57439 1535706958.15782: results queue empty
+ 57439 1535706958.15791: checking for any_errors_fatal
+ 57439 1535706958.15801: done checking for any_errors_fatal
+ 57439 1535706958.15810: checking for max_fail_percentage
+ 57439 1535706958.15818: done checking for max_fail_percentage
+ 57439 1535706958.15827: checking to see if all hosts have failed and the running result is not ok
+ 57439 1535706958.15836: done checking to see if all hosts have failed
+ 57439 1535706958.15846: getting the remaining hosts for this loop
+ 57439 1535706958.15858: done getting the remaining hosts for this loop
+ 57439 1535706958.15869: building list of next tasks for hosts
+ 57439 1535706958.15879: getting the next task for host 10.120.195.2
+ 57439 1535706958.15891: done getting next task for host 10.120.195.2
+ 57439 1535706958.15904:  ^ task is: TASK: shell
+ 57439 1535706958.15915:  ^ state is: HOST STATE: block=2, task=1, rescue=0, always=0, run_state=ITERATING_TASKS, fail_state=FAILED_NONE, pending_setup=False, tasks child state? (None), rescue child state? (None), always child state? (None), did rescue? False, did start at task? False
+ 57439 1535706958.15925: done building task lists
+ 57439 1535706958.15934: counting tasks in each state of execution
+ 57439 1535706958.15944: done counting tasks in each state of execution:
+	num_setups: 0
+	num_tasks: 1
+	num_rescue: 0
+	num_always: 0
+ 57439 1535706958.15954: advancing hosts in ITERATING_TASKS
+ 57439 1535706958.15963: starting to advance hosts
+ 57439 1535706958.15972: getting the next task for host 10.120.195.2
+ 57439 1535706958.15983: done getting next task for host 10.120.195.2
+ 57439 1535706958.15995:  ^ task is: TASK: shell
+ 57439 1535706958.16006:  ^ state is: HOST STATE: block=2, task=1, rescue=0, always=0, run_state=ITERATING_TASKS, fail_state=FAILED_NONE, pending_setup=False, tasks child state? (None), rescue child state? (None), always child state? (None), did rescue? False, did start at task? False
+ 57439 1535706958.16016: done advancing hosts to next task
+ 57439 1535706958.16045: Loading ActionModule 'shell' from /usr/lib/python2.7/site-packages/ansible/plugins/action/shell.py (found_in_cache=False, class_only=True)
+ 57439 1535706958.16060: getting variables
+ 57439 1535706958.16070: in VariableManager get_vars()
+ 57439 1535706958.16104: Loading FilterModule 'core' from /usr/lib/python2.7/site-packages/ansible/plugins/filter/core.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.16117: Loading FilterModule 'ipaddr' from /usr/lib/python2.7/site-packages/ansible/plugins/filter/ipaddr.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.16128: Loading FilterModule 'json_query' from /usr/lib/python2.7/site-packages/ansible/plugins/filter/json_query.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.16139: Loading FilterModule 'mathstuff' from /usr/lib/python2.7/site-packages/ansible/plugins/filter/mathstuff.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.16151: Loading FilterModule 'network' from /usr/lib/python2.7/site-packages/ansible/plugins/filter/network.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.16162: Loading FilterModule 'urlsplit' from /usr/lib/python2.7/site-packages/ansible/plugins/filter/urlsplit.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.16188: Loading TestModule 'core' from /usr/lib/python2.7/site-packages/ansible/plugins/test/core.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.16200: Loading TestModule 'files' from /usr/lib/python2.7/site-packages/ansible/plugins/test/files.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.16213: Loading TestModule 'mathstuff' from /usr/lib/python2.7/site-packages/ansible/plugins/test/mathstuff.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.16317: Calling all_inventory to load vars for 10.120.195.2
+ 57439 1535706958.16334: Calling groups_inventory to load vars for 10.120.195.2
+ 57439 1535706958.16349: Calling all_plugins_inventory to load vars for 10.120.195.2
+ 57439 1535706958.16424: Loading VarsModule 'host_group_vars' from /usr/lib/python2.7/site-packages/ansible/plugins/vars/host_group_vars.py
+ 57439 1535706958.16448: 	processing dir /home/worker/tidb-ansible/group_vars
+ 57439 1535706958.16468: Loading data from /home/worker/tidb-ansible/group_vars/all.yml
+ 57439 1535706958.16550: Calling all_plugins_play to load vars for 10.120.195.2
+ 57439 1535706958.16577: Loading VarsModule 'host_group_vars' from /usr/lib/python2.7/site-packages/ansible/plugins/vars/host_group_vars.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.16601: Loading data from /home/worker/tidb-ansible/group_vars/all.yml
+ 57439 1535706958.16615: Calling groups_plugins_inventory to load vars for 10.120.195.2
+ 57439 1535706958.16638: Loading VarsModule 'host_group_vars' from /usr/lib/python2.7/site-packages/ansible/plugins/vars/host_group_vars.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.16661: 	processing dir /home/worker/tidb-ansible/group_vars
+ 57439 1535706958.16678: Calling groups_plugins_play to load vars for 10.120.195.2
+ 57439 1535706958.16700: Loading VarsModule 'host_group_vars' from /usr/lib/python2.7/site-packages/ansible/plugins/vars/host_group_vars.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.16734: Loading VarsModule 'host_group_vars' from /usr/lib/python2.7/site-packages/ansible/plugins/vars/host_group_vars.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.16769: Loading VarsModule 'host_group_vars' from /usr/lib/python2.7/site-packages/ansible/plugins/vars/host_group_vars.py (found_in_cache=True, class_only=False)
+ 57439 1535706958.17643: done with get_vars()
+ 57439 1535706958.17664: done getting variables
+ 57439 1535706958.17679: sending task start callback, copying the task so we can template it temporarily
+ 57439 1535706958.17690: done copying, going to template now
+ 57439 1535706958.17701: done templating
+ 57439 1535706958.17710: here goes the callback...
+ 57439 1535706958.17721: sending task start callback
+ 57439 1535706958.17731: entering _queue_task() for 10.120.195.2/shell
+ 57439 1535706958.17743: Creating lock for shell
+ 57439 1535706958.17909: worker is 1 (out of 1 available)
+ 57439 1535706958.17992: exiting _queue_task() for 10.120.195.2/shell
+ 57439 1535706958.18015: done queuing things up, now waiting for results queue to drain
+ 57439 1535706958.18028: waiting for pending results...
+ 57455 1535706958.18583: running TaskExecutor() for 10.120.195.2/TASK: shell
+ 57455 1535706958.18719: in run() - task 5cb90194-e2bc-1a69-af3b-000000000009
+ 57455 1535706958.18835: calling self._execute()
+ 57455 1535706958.19929: Loading Connection 'ssh' from /usr/lib/python2.7/site-packages/ansible/plugins/connection/ssh.py
+ 57455 1535706958.20054: Loading ShellModule 'csh' from /usr/lib/python2.7/site-packages/ansible/plugins/shell/csh.py
+ 57455 1535706958.20221: assigned :doc
+ 57455 1535706958.20281: Loading ModuleDocFragment 'shell_common' from /usr/lib/python2.7/site-packages/ansible/utils/module_docs_fragments/shell_common.py
+ 57455 1535706958.20586: Loaded config def from plugin (shell/csh)
+ 57455 1535706958.20669: Loading ShellModule 'fish' from /usr/lib/python2.7/site-packages/ansible/plugins/shell/fish.py
+ 57455 1535706958.20829: assigned :doc
+ 57455 1535706958.20871: Loading ModuleDocFragment 'shell_common' from /usr/lib/python2.7/site-packages/ansible/utils/module_docs_fragments/shell_common.py (found_in_cache=True, class_only=False)
+ 57455 1535706958.21423: Loaded config def from plugin (shell/fish)
+ 57455 1535706958.21452: Loading ShellModule 'powershell' from /usr/lib/python2.7/site-packages/ansible/plugins/shell/powershell.py
+ 57455 1535706958.22038: assigned :doc
+ 57455 1535706958.22095: Loaded config def from plugin (shell/powershell)
+ 57455 1535706958.22119: Loading ShellModule 'sh' from /usr/lib/python2.7/site-packages/ansible/plugins/shell/sh.py
+ 57455 1535706958.22228: assigned :doc
+ 57455 1535706958.22266: Loading ModuleDocFragment 'shell_common' from /usr/lib/python2.7/site-packages/ansible/utils/module_docs_fragments/shell_common.py (found_in_cache=True, class_only=False)
+ 57455 1535706958.22490: Loaded config def from plugin (shell/sh)
+ 57455 1535706958.22536: Loading ShellModule 'sh' from /usr/lib/python2.7/site-packages/ansible/plugins/shell/sh.py (found_in_cache=True, class_only=False)
+ 57455 1535706958.24387: assigned :doc
+ 57455 1535706958.24485: Loaded config def from plugin (connection/ssh)
+ 57455 1535706958.24702: Loading ActionModule 'shell' from /usr/lib/python2.7/site-packages/ansible/plugins/action/shell.py (found_in_cache=True, class_only=False)
+ 57455 1535706958.24727: starting attempt loop
+ 57455 1535706958.24747: running the handler
+ 57455 1535706958.24790: Loading ActionModule 'command' from /usr/lib/python2.7/site-packages/ansible/plugins/action/command.py
+ 57455 1535706958.24855: ANSIBALLZ: Using generic lock for command
+ 57455 1535706958.24874: ANSIBALLZ: Acquiring lock
+ 57455 1535706958.24890: ANSIBALLZ: Lock acquired: 52767952
+ 57455 1535706958.24909: ANSIBALLZ: Creating module
+ 57455 1535706958.37846: ANSIBALLZ: Writing module
+ 57455 1535706958.37877: ANSIBALLZ: Renaming module
+ 57455 1535706958.37893: ANSIBALLZ: Done creating module
+ 57455 1535706958.37954: _low_level_execute_command(): starting
+ 57455 1535706958.37970: _low_level_execute_command(): executing: /bin/sh -c 'echo ~ && sleep 0'
+ 57439 1535706964.99073: RUNNING CLEANUP
+Process WorkerProcess-1:
+Traceback (most recent call last):
+  File "/usr/lib64/python2.7/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib/python2.7/site-packages/ansible/executor/process/worker.py", line 118, in run
+    self._rslt_q
+  File "/usr/lib/python2.7/site-packages/ansible/executor/task_executor.py", line 138, in run
+ [ERROR]: User interrupted execution

@@ -1,0 +1,26 @@
+---
+
+tidb_packages:
+  - name: tidb
+    version: latest
+    url: http://download.pingcap.org/tidb-latest-linux-amd64-unportable.tar.gz
+  - name: tidb-tools
+    version: latest
+    url: http://download.pingcap.org/tidb-tools-latest-linux-amd64.tar.gz
+
+common_packages:
+  - name: fio
+    version: 2.16
+    url: "http://download.pingcap.org/fio-2.16.tar.gz"
+    checksum: "sha256:bb8e2413aaa154e4b738c5f79a346353ae993c93632d93ad316fcfa70eaa4d04"
+  - name: grafana_collector
+    version: latest
+    url: http://download.pingcap.org/grafana_collector-latest-linux-amd64.tar.gz
+  - name: kafka_exporter
+    version: 1.1.0
+    url: https://download.pingcap.org/kafka_exporter-1.1.0.linux-amd64.tar.gz
+
+diagnosis_packages:
+  - name: tidb-insight
+    version: v0.2.1.1-4-gc03fa7b
+    url: https://download.pingcap.org/tidb-insight-v0.2.1.1-4-gc03fa7b.tar.gz

@@ -1,0 +1,23 @@
+---
+
+
+
+- hosts: proxy_servers
+  tags:
+    - proxy
+  tasks:
+    - name: start Proxy by systemd
+      systemd: name=proxy-{{ proxy_port }}.service state=started enabled=no
+      become: true
+      when: process_supervision == 'systemd'
+
+    - command: cat {{ deploy_dir }}/status/tikv.pid
+      register: new_proxy_pid
+      ignore_errors: yes
+      changed_when: false
+
+    - name: display new proxy pid
+      debug:
+        msg: "proxy binary or docker pid: {{ new_proxy_pid.stdout }}"
+
+
