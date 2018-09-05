@@ -6,6 +6,7 @@ global:
   # tso-save-interval: "3s"
 
   # namespace-classifier: "table"
+  namespace-classifier: "default"
 
   # enable-prevote: true
 
