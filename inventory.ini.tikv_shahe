@@ -21,6 +21,8 @@ TiKV4-4 ansible_host=10.120.195.4 deploy_dir=/ssd4/tikv/deploy tikv_port=20164
 10.120.195.4
 
 [proxy_servers]
+10.120.195.1
+10.120.195.3
 10.120.195.4
 
 [spark_master]

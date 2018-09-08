@@ -21,10 +21,6 @@
         thread_name_regex='tikv-proxy' state=present
       when: deployment_method == 'binary'
 
-    - name: wait for Proxy up
-      wait_for: host={{ ansible_host }} port={{ proxy_port }} state=present
-      when: deployment_method == 'docker'
-
     - command: cat {{ deploy_dir }}/status/proxy.pid
       register: new_proxy_pid
       ignore_errors: yes
