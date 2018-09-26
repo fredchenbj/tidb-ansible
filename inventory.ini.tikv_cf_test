@@ -65,12 +65,16 @@ tidb_version = latest
 # process supervision, [systemd, supervise]
 process_supervision = systemd
 
+# timezone of deployment region
 timezone = Asia/Shanghai
+set_timezone = True
 
 enable_firewalld = False
 # check NTP service
 enable_ntpd = True
 set_hostname = False
+
+dev_mode = True
 
 ## binlog trigger
 enable_binlog = False

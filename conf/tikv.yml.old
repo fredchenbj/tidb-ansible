@@ -2,23 +2,29 @@
 # default configuration file for TiKV in yaml format
 
 global:
-  # log level: trace, debug, info, warn, error, off.
+  # log level: trace, debug, info, warning, error, critical.
+  # Note that `debug` and `trace` are only available in development builds.
   # log-level: "info"
+
+  # timespan between rotating the log files.
+  # Once this timespan passes the existing log file will have a timestamp appended to its name,
+  # and a new file will be created.
+  # log-rotation-timespan: "24h"
 
 readpool:
   storage:
     # size of thread pool for high-priority read operations
-     high-concurrency: 26
+    # high-concurrency: 4
     # size of thread pool for normal-priority read operations
-     normal-concurrency: 26
+    # normal-concurrency: 4
     # size of thread pool for low-priority read operations
-     low-concurrency: 26
-    # max running high-priority read operations, reject if exceed
-     max-tasks-high: 52000
-    # max running normal-priority read operations, reject if exceed
-     max-tasks-normal: 52000
-    # max running low-priority read operations, reject if exceed
-     max-tasks-low: 52000
+    # low-concurrency: 4
+    # max running high-priority operations of each worker, reject if exceed
+    # max-tasks-per-worker-high: 2000
+    # max running normal-priority operations of each worker, reject if exceed
+    # max-tasks-per-worker-normal: 2000
+    # max running low-priority operations of each worker, reject if exceed
+    # max-tasks-per-worker-low: 2000
     # size of stack size for each thread pool
     # stack-size: "10MB"
   coprocessor:
@@ -27,9 +33,9 @@ readpool:
     # high-concurrency: 8
     # normal-concurrency: 8
     # low-concurrency: 8
-    # max-tasks-high: 16000
-    # max-tasks-normal: 16000
-    # max-tasks-low: 16000
+    # max-tasks-per-worker-high: 2000
+    # max-tasks-per-worker-normal: 2000
+    # max-tasks-per-worker-low: 2000
     # stack-size: "10MB"
 
 server:
@@ -40,6 +46,8 @@ server:
   # maximum number of messages can be processed in one tick.
   # messages-per-tick: 4096
 
+  # compression type for grpc channel, available values are none, deflate and gzip.
+  # grpc-compression-type: "none"
   # size of thread pool for grpc server.
   # grpc-concurrency: 4
   # The number of max concurrent streams/requests on a client connection.
@@ -48,15 +56,11 @@ server:
   # grpc-raft-conn-num: 10
   # Amount to read ahead on individual grpc streams.
   # grpc-stream-initial-window-size: "2MB"
-  # Time to wait before sending out a ping to check if server is still alive.
-  # This is only for communications between tikv instances.
-  # grpc-keepalive-time: "10s"
-  # Time to wait before closing the connection without receiving keepalive ping
-  # ack.
-  # grpc-keepalive-timeout: "3s"
 
-  # max count of tasks being handled, new tasks will be rejected.
-  # end-point-max-tasks: 2000
+  # How many snapshots can be sent concurrently.
+  # concurrent-send-snap-limit: 32
+  # How many snapshots can be recv concurrently.
+  # concurrent-recv-snap-limit: 32
 
   # max recursion level allowed when decoding dag expression
   # end-point-recursion-limit: 1000
@@ -79,7 +83,7 @@ storage:
   # scheduler-messages-per-tick: 1024
 
   # the number of slots in scheduler latches, concurrency control for write.
-  # scheduler-concurrency: 102400
+  # scheduler-concurrency: 2048000
 
   # scheduler's worker pool size, should increase it in heavy write cases,
   # also should less than total cpu cores.
@@ -104,15 +108,14 @@ metric:
 raftstore:
   # true (default value) for high reliability, this can prevent data loss when power failure.
   # sync-log: true
-  sync-log: false
 
   # minimizes disruption when a partitioned node rejoins the cluster by using a two phase election.
-  # prevote: true
+  # prevote: false
 
   # set the path to raftdb directory, default value is data-dir/raft
   # raftdb-path: ""
 
-  # set store capacity, if no set, use disk capacity.
+  # set store , if no set, use disk capacity.
   # capacity: 0
 
   # notify capacity, 40960 is suitable for about 7000 regions.
@@ -152,14 +155,24 @@ raftstore:
 
   # Interval to check whether start manual compaction for a region,
   # region-compact-check-interval: "5m"
+
   # Number of regions for each time to check.
   # region-compact-check-step: 100
+
   # The minimum number of delete tombstones to trigger manual compaction.
   # region-compact-min-tombstones: 10000
+
+  # The minimum percentage of delete tombstones to trigger manual compaction.
+  # Should between 1 and 100. Manual compaction only triggered when the number
+  # of delete tombstones exceeds region-compact-min-tombstones and the percentage
+  # of delete tombstones exceeds region-compact-tombstones-percent.
+  # region-compact-tombstones-percent: 30
+
   # Interval to check whether should start a manual compaction for lock column family,
   # if written bytes reach lock-cf-compact-threshold for lock column family, will fire
   # a manual compaction for lock column family.
   # lock-cf-compact-interval: "10m"
+
   # lock-cf-compact-bytes-threshold: "256MB"
 
   # Interval (s) to check region whether the data are consistent.
@@ -167,7 +180,6 @@ raftstore:
 
   # Use delete range to drop a large number of continuous keys.
   # use-delete-range: false
-  use-delete-range: true
 
   # delay time before deleting a stale peer
   # clean-stale-peer-delay: "10m"
@@ -185,11 +197,6 @@ coprocessor:
   # bit smaller.
   # region-max-size: "144MB"
   # region-split-size: "96MB"
-  # When the region's keys exceeds region-max-keys, we will split the region
-  # into two which the left region's keys will be region-split-keys or a little
-  # bit smaller.
-  # region-max-keys: 1440000
-  # region-split-keys: 960000
 
 rocksdb:
   # Maximum number of concurrent background jobs (compactions and flushes)
@@ -283,23 +290,25 @@ rocksdb:
 
   # Allows OS to incrementally sync files to disk while they are being
   # written, asynchronously, in the background.
-  # bytes-per-sync: "1MB"
+  # bytes-per-sync: "0MB"
 
   # Allows OS to incrementally sync WAL to disk while it is being written.
-  # wal-bytes-per-sync: "512KB"
+  # wal-bytes-per-sync: "0KB"
 
   # Specify the maximal size of the Rocksdb info log file. If the log file
   # is larger than `max_log_file_size`, a new info log file will be created.
   # If max_log_file_size == 0, all logs will be written to one log file.
+  # Default: 1GB
   # info-log-max-size: "1GB"
 
   # Time for the Rocksdb info log file to roll (in seconds).
   # If specified with non-zero value, log file will be rolled
   # if it has been active longer than `log_file_time_to_roll`.
-  # 0 means disabled.
+  # Default: 0 (disabled)
   # info-log-roll-time: "0"
 
   # Maximal Rocksdb info log files to be kept.
+  # Default: 10
   # info-log-keep-log-file-num: 10
 
   # This specifies the Rocksdb info LOG dir.
@@ -327,7 +336,6 @@ rocksdb:
     # Approximate size of user data packed per block.  Note that the
     # block size specified here corresponds to uncompressed data.
     # block-size: "64KB"
-    block-size: "4KB"
 
     # If you're doing point lookups you definitely want to turn bloom filters on, We use
     # bloom filters to avoid unnecessary disk reads. Default bits_per_key is 10, which
@@ -339,37 +347,29 @@ rocksdb:
     # block-based-bloom-filter: false
 
     # level0-file-num-compaction-trigger: 4
-    level0-file-num-compaction-trigger: 2
 
     # Soft limit on number of level-0 files. We start slowing down writes at this point.
-    level0-slowdown-writes-trigger: 20
-    # level0-slowdown-writes-trigger: 10
+    # level0-slowdown-writes-trigger: 20
 
     # Maximum number of level-0 files.  We stop writes at this point.
     # level0-stop-writes-trigger: 36
-    level0-stop-writes-trigger: 200
 
     # Amount of data to build up in memory (backed by an unsorted log
     # on disk) before converting to a sorted on-disk file.
     # write-buffer-size: "128MB"
-    write-buffer-size: "32MB"
 
     # The maximum number of write buffers that are built up in memory.
     # max-write-buffer-number: 5
-    max-write-buffer-number: 60
 
     # The minimum number of write buffers that will be merged together
     # before writing to storage.
     # min-write-buffer-number-to-merge: 1
-    min-write-buffer-number-to-merge: 2
 
     # Control maximum total data size for base level (level 1).
     # max-bytes-for-level-base: "512MB"
-    max-bytes-for-level-base: "128MB"
 
     # Target file size for compaction.
     # target-file-size-base: "8MB"
-    target-file-size-base: "32MB"
 
     # Max bytes for compaction.max_compaction_bytes
     # max-compaction-bytes: "2GB"
@@ -383,9 +383,7 @@ rocksdb:
 
     # block-cache used to cache uncompressed blocks, big block-cache can speed up read.
     # in normal cases should tune to 30%-50% system's total memory.
-    #block-cache-size: "7.5GB"
-    #block-cache-size: "10485760"
-    block-cache-size: "5GB"
+    # block-cache-size: "8GB"
 
     # Indicating if we'd put index/filter blocks to the block cache.
     # If not specified, each "table reader" object will pre-load index/filter block
@@ -405,7 +403,7 @@ rocksdb:
     # read-amp-bytes-per-bit: 0
 
     # Pick target size of each level dynamically.
-    # dynamic-level-bytes: true
+    # dynamic-level-bytes: false
 
   # options for Column Family write
   # Column Family write used to store commit informations in MVCC model
@@ -419,7 +417,7 @@ rocksdb:
     # target-file-size-base: "8MB"
 
     # in normal cases should tune to 10%-30% system's total memory.
-    block-cache-size: "2GB"
+    # block-cache-size: "256MB"
     # level0-file-num-compaction-trigger: 4
     # level0-slowdown-writes-trigger: 20
     # level0-stop-writes-trigger: 36
@@ -427,7 +425,7 @@ rocksdb:
     # pin-l0-filter-and-index-blocks: true
     # compaction-pri: 3
     # read-amp-bytes-per-bit: 0
-    # dynamic-level-bytes: true
+    # dynamic-level-bytes: false
 
   lockcf:
     # compression-per-level: ["no", "no", "no", "no", "no", "no", "no"]
@@ -437,7 +435,7 @@ rocksdb:
     # min-write-buffer-number-to-merge: 1
     # max-bytes-for-level-base: "128MB"
     # target-file-size-base: "8MB"
-    block-cache-size: "512MB"
+    # block-cache-size: "256MB"
     # level0-file-num-compaction-trigger: 1
     # level0-slowdown-writes-trigger: 20
     # level0-stop-writes-trigger: 36
@@ -445,7 +443,7 @@ rocksdb:
     # pin-l0-filter-and-index-blocks: true
     # compaction-pri: 0
     # read-amp-bytes-per-bit: 0
-    # dynamic-level-bytes: true
+    # dynamic-level-bytes: false
 
 raftdb:
   # max-sub-compactions: 1
@@ -461,8 +459,13 @@ raftdb:
   # use-direct-io-for-flush-and-compaction: false
   # enable-pipelined-write: true
   # allow-concurrent-memtable-write: false
-  # bytes-per-sync: "1MB"
-  # wal-bytes-per-sync: "512KB"
+  # bytes-per-sync: "0MB"
+  # wal-bytes-per-sync: "0KB"
+
+  # info-log-max-size: "1GB"
+  # info-log-roll-time: "0"
+  # info-log-keep-log-file-num: 10
+  # info-log-dir: ""
 
   defaultcf:
     # compression-per-level: ["no", "no", "lz4", "lz4", "lz4", "zstd", "zstd"]
@@ -474,7 +477,7 @@ raftdb:
     # target-file-size-base: "8MB"
 
     # should tune to 256MB~2GB.
-    block-cache-size: "1GB"
+    # block-cache-size: "1024MB"
     # level0-file-num-compaction-trigger: 4
     # level0-slowdown-writes-trigger: 20
     # level0-stop-writes-trigger: 36
@@ -482,7 +485,7 @@ raftdb:
     # pin-l0-filter-and-index-blocks: true
     # compaction-pri: 0
     # read-amp-bytes-per-bit: 0
-    # dynamic-level-bytes: true
+    # dynamic-level-bytes: false
 
 security:
   # set the path for certificates. Empty string means disabling secure connectoins.

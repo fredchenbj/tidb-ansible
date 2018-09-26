@@ -2,21 +2,28 @@
 [tidb_servers]
 
 [tikv_servers]
-TiKV1-1 ansible_host=10.136.16.1 deploy_dir=/ssd1/tidb/deploy tikv_port=20160 labels="host=tikv1"
-TiKV1-2 ansible_host=10.136.16.1 deploy_dir=/ssd2/tidb/deploy tikv_port=20161 labels="host=tikv1"
-TiKV1-3 ansible_host=10.136.16.1 deploy_dir=/ssd3/tidb/deploy tikv_port=20162 labels="host=tikv1"
-TiKV1-4 ansible_host=10.136.16.1 deploy_dir=/ssd4/tidb/deploy tikv_port=20163 labels="host=tikv1"
-TiKV2-1 ansible_host=10.136.16.9 deploy_dir=/ssd1/tidb/deploy tikv_port=20160 labels="host=tikv2"
-TiKV2-2 ansible_host=10.136.16.9 deploy_dir=/ssd2/tidb/deploy tikv_port=20161 labels="host=tikv2"
-TiKV2-3 ansible_host=10.136.16.9 deploy_dir=/ssd3/tidb/deploy tikv_port=20162 labels="host=tikv2"
-TiKV2-4 ansible_host=10.136.16.9 deploy_dir=/ssd4/tidb/deploy tikv_port=20163 labels="host=tikv2"
-TiKV3-1 ansible_host=10.136.16.26 deploy_dir=/ssd1/tidb/deploy tikv_port=20160 labels="host=tikv3"
-TiKV3-2 ansible_host=10.136.16.26 deploy_dir=/ssd2/tidb/deploy tikv_port=20161 labels="host=tikv3"
-TiKV3-3 ansible_host=10.136.16.26 deploy_dir=/ssd3/tidb/deploy tikv_port=20162 labels="host=tikv3"
-TiKV3-4 ansible_host=10.136.16.26 deploy_dir=/ssd4/tidb/deploy tikv_port=20163 labels="host=tikv3"
+TiKV1-1 ansible_host=10.120.195.1 deploy_dir=/ssd1/tikv/deploy tikv_port=20161 
+TiKV1-2 ansible_host=10.120.195.1 deploy_dir=/ssd2/tikv/deploy tikv_port=20162 
+TiKV1-3 ansible_host=10.120.195.1 deploy_dir=/ssd3/tikv/deploy tikv_port=20163 
+TiKV1-4 ansible_host=10.120.195.1 deploy_dir=/ssd4/tikv/deploy tikv_port=20164 
+TiKV3-1 ansible_host=10.120.195.3 deploy_dir=/ssd1/tikv/deploy tikv_port=20161 
+TiKV3-2 ansible_host=10.120.195.3 deploy_dir=/ssd2/tikv/deploy tikv_port=20162 
+TiKV3-3 ansible_host=10.120.195.3 deploy_dir=/ssd3/tikv/deploy tikv_port=20163 
+TiKV3-4 ansible_host=10.120.195.3 deploy_dir=/ssd4/tikv/deploy tikv_port=20164 
+TiKV4-1 ansible_host=10.120.195.4 deploy_dir=/ssd1/tikv/deploy tikv_port=20161 
+TiKV4-2 ansible_host=10.120.195.4 deploy_dir=/ssd2/tikv/deploy tikv_port=20162 
+TiKV4-3 ansible_host=10.120.195.4 deploy_dir=/ssd3/tikv/deploy tikv_port=20163 
+TiKV4-4 ansible_host=10.120.195.4 deploy_dir=/ssd4/tikv/deploy tikv_port=20164 
 
 [pd_servers]
-10.136.16.8
+10.120.195.1
+10.120.195.3
+10.120.195.4
+
+[proxy_servers]
+10.120.195.1
+10.120.195.3
+10.120.195.4
 
 [spark_master]
 
@@ -25,17 +32,16 @@ TiKV3-4 ansible_host=10.136.16.26 deploy_dir=/ssd4/tidb/deploy tikv_port=20163 l
 ## Monitoring Part
 # prometheus and pushgateway servers
 [monitoring_servers]
-10.136.16.8
+10.120.195.4
 
 [grafana_servers]
-10.136.16.8
+10.120.195.4
 
 # node_exporter and blackbox_exporter servers
 [monitored_servers]
-10.136.16.1
-10.136.16.8
-10.136.16.9
-10.136.16.26
+10.120.195.1
+10.120.195.3
+10.120.195.4
 
 [alertmanager_servers]
 
@@ -48,29 +54,33 @@ TiKV3-4 ansible_host=10.136.16.26 deploy_dir=/ssd4/tidb/deploy tikv_port=20163 l
 ## Group variables
 [pd_servers:vars]
 # location_labels = ["zone","rack","host"]
-location_labels = ["host"]
+# location_labels = ["host"]
 
 ## Global variables
 [all:vars]
-deploy_dir = /ssd1/tidb/deploy
+deploy_dir = /home/worker/tikv/deploy
 
 ## Connection
 # ssh via normal user
 ansible_user = worker
 
-cluster_name = tikv_cf_test
+cluster_name = tikv_shahe
 
 tidb_version = latest
 
 # process supervision, [systemd, supervise]
 process_supervision = systemd
 
+# timezone of deployment region
 timezone = Asia/Shanghai
+set_timezone = True
 
 enable_firewalld = False
 # check NTP service
 enable_ntpd = True
 set_hostname = False
+
+dev_mode = True
 
 ## binlog trigger
 enable_binlog = False

@@ -1,0 +1,4 @@
+10.120.195.2
+
+#[all:vars]
+#ansible_user = worker
