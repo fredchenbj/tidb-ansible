@@ -104,6 +104,13 @@ alerting:
   {% set _ = pd_addrs.append("%s:%s" % (pd_ip, pd_port)) -%}
 {% endfor -%}
 
+{% set proxy_addrs = [] -%}
+{% for host in groups.proxy_servers -%}
+  {% set proxy_ip = hostvars[host].ansible_host | default(hostvars[host].inventory_hostname) -%}
+  {% set proxy_port = hostvars[host].proxy_port -%}
+  {% set _ = proxy_addrs.append("%s:%s" % (proxy_ip, proxy_port)) -%}
+{% endfor -%}
+
 scrape_configs:
 {% if pushgateway_host %}
   - job_name: 'overwritten-cluster'
@@ -268,6 +275,12 @@ scrape_configs:
 {% endfor %}
       labels:
         group: 'tidb'
+    - targets:
+{% for proxy_addr in proxy_addrs %}
+      - '{{ proxy_addr }}'
+{% endfor %}
+      labels:
+        group: 'proxy'
     - targets:
 {% for tikv_addr in tikv_addrs %}
       - '{{ tikv_addr }}'
