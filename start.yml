@@ -41,7 +41,7 @@
 
     - name: start node_exporter by systemd
       become: true
-      systemd: name=node_exporter-{{ node_exporter_port }}.service state=started enabled=no
+      systemd: name=node_exporter-{{ node_exporter_port }}.service state=started enabled=yes
       when: process_supervision == 'systemd'
 
     - name: wait until the node_exporter port is up
@@ -70,7 +70,7 @@
 
     - name: start blackbox_exporter by systemd
       become: true
-      systemd: name=blackbox_exporter-{{ blackbox_exporter_port }}.service state=started enabled=no
+      systemd: name=blackbox_exporter-{{ blackbox_exporter_port }}.service state=started enabled=yes
       when: process_supervision == 'systemd'
 
     - name: wait until the blackbox_exporter port is up
@@ -121,7 +121,7 @@
         - pushgateway
 
     - name: start pushgateway by systemd
-      systemd: name={{ item }} state=started enabled=no
+      systemd: name={{ item }} state=started enabled=yes
       when: process_supervision == 'systemd'
       become: true
       with_items:
@@ -154,7 +154,7 @@
         - prometheus
 
     - name: start prometheus by systemd
-      systemd: name={{ item }} state=started enabled=no
+      systemd: name={{ item }} state=started enabled=yes
       when: process_supervision == 'systemd'
       become: true
       with_items:
@@ -188,7 +188,7 @@
 
     - name: start kafka_exporter by systemd
       become: true
-      systemd: name=kafka_exporter-{{ kafka_exporter_port }}.service state=started enabled=no
+      systemd: name=kafka_exporter-{{ kafka_exporter_port }}.service state=started enabled=yes
       when:
         - enable_binlog|default(false)
         - process_supervision == 'systemd'
@@ -213,7 +213,7 @@
         - pd
 
     - name: start PD by systemd
-      systemd: name=pd.service state=started enabled=no
+      systemd: name=pd.service state=started enabled=yes
       become: true
       when: process_supervision == 'systemd'
 
@@ -259,7 +259,7 @@
         - tikv
 
     - name: start TiKV by systemd
-      systemd: name=tikv-{{ tikv_port }}.service state=started enabled=no
+      systemd: name=tikv-{{ tikv_port }}.service state=started enabled=yes
       become: true
       when: process_supervision == 'systemd'
 
@@ -322,7 +322,7 @@
         - pump
 
     - name: start pump by systemd
-      systemd: name=pump-{{ pump_port }}.service state=started enabled=no
+      systemd: name=pump-{{ pump_port }}.service state=started enabled=yes
       become: true
       when:
         - enable_binlog|default(false)
@@ -348,7 +348,7 @@
         - tidb
 
     - name: start TiDB by systemd
-      systemd: name=tidb-{{ tidb_port }}.service state=started enabled=no
+      systemd: name=tidb-{{ tidb_port }}.service state=started enabled=yes
       become: true
       when: process_supervision == 'systemd'
 
@@ -396,7 +396,7 @@
         - grafana
 
     - name: start grafana by systemd
-      systemd: name=grafana-{{ grafana_port }}.service state=started enabled=no
+      systemd: name=grafana-{{ grafana_port }}.service state=started enabled=yes
       when: process_supervision == 'systemd'
       become: true
 
@@ -422,7 +422,7 @@
         - grafana_collector
 
     - name: start grafana_collector by systemd
-      systemd: name=grafana_collector-{{ grafana_collector_port }}.service state=started enabled=no
+      systemd: name=grafana_collector-{{ grafana_collector_port }}.service state=started enabled=yes
       when: process_supervision == 'systemd'
       become: true
 
