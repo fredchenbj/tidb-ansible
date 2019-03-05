@@ -103,6 +103,7 @@
     - proxy
   roles:
     - proxy
+    - monitor
 
 - name: deploying PD cluster
   hosts: pd_servers
