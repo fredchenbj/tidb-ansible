@@ -1,0 +1,11 @@
+---
+
+# default configuration for proxy
+
+proxy_log_level: info
+proxy_log_dir: "{{ deploy_dir }}/log"
+proxy_log_filename: "proxy.log"
+proxy_stderr_filename: "proxy_stderr.log"
+proxy_status_dir: "{{ deploy_dir }}/status"
+
+proxy_tag: v0.0.1
