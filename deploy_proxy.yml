@@ -1,0 +1,9 @@
+# deploying TiDB cluster
+- name: deploying Proxy cluster
+  hosts: proxy_servers
+  tags:
+    - proxy
+  roles:
+    - proxy
+    - monitor
+
