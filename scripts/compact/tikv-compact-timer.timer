@@ -1,0 +1,10 @@
+[Unit]
+Description=Runs tikv compact timer every two o'clock on the morning
+
+[Timer]
+#OnUnitActiveSec=1h
+OnCalendar=*-*-* 02:00:00
+Unit=tikv-compact-timer.service
+
+[Install]
+WantedBy=multi-user.target

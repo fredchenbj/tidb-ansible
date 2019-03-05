@@ -1,0 +1,7 @@
+[Unit]
+Description=tikv-compact-timer
+ 
+
+[Service]
+ExecStart=/bin/bash /ssd3/ChenFu/Git/tidb-ansible/scripts/compact/compact-cluster.sh
+ 
