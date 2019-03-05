@@ -1,0 +1,20 @@
+#!/bin/bash
+set -e
+ulimit -n 1000000
+
+# WARNING: This file was auto-generated. Do not edit!
+#          All your edit might be overwritten!
+DEPLOY_DIR={{ deploy_dir }}
+cd "${DEPLOY_DIR}/scripts" || exit 1
+
+{% set my_ip = hostvars[inventory_hostname].ansible_host | default(hostvars[inventory_hostname].inventory_hostname) -%}
+
+
+THE_SERVICE={{ cluster_name }}
+THE_RETAIN_DAYS=1
+THE_IP={{ my_ip }}
+THE_PORT={{ proxy_port }}
+THE_LOG_PATH={{ proxy_log_dir }}
+
+exec python -u proxy_monitor.py ${THE_SERVICE} $THE_LOG_PATH/ ${THE_RETAIN_DAYS} ${THE_IP} ${THE_PORT} 
+
