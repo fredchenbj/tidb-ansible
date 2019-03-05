@@ -8,3 +8,5 @@ fact_files/
 .vscode
 inventorys/
 hosts/
+conf/keys/
+scripts/dests.json
