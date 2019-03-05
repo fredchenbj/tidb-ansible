@@ -104,6 +104,10 @@ server:
   # labels: {}
 
 storage:
+  # max size of key
+  # max-key-size: 4096
+  max-key-size: 8192
+
   ## Internal notify capacity of Scheduler's channel.
   # scheduler-notify-capacity: 10240
 
@@ -167,6 +171,7 @@ raftstore:
   ## Set to `true` (default) for best reliability, which prevents data loss when there is a power
   ## failure. Set to `false` for higher performance (ensure that you run multiple TiKV nodes!).
   # sync-log: true
+  sync-log: false
 
   ## Whether to enable Raft prevote.
   ## Prevote minimizes disruption when a partitioned node rejoins the cluster by using a two phase
@@ -387,9 +392,11 @@ rocksdb:
   ## Allows OS to incrementally sync files to disk while they are being written, asynchronously,
   ## in the background.
   # bytes-per-sync: "1MB"
+  bytes-per-sync: "4MB"
 
   ## Allows OS to incrementally sync WAL to disk while it is being written.
   # wal-bytes-per-sync: "512KB"
+  wal-bytes-per-sync: "4MB"
 
   ## Specify the maximal size of the RocksDB info log file.
   ## If the log file is larger than this config, a new info log file will be created.
@@ -456,6 +463,7 @@ rocksdb:
     ## mode to "no:no:no:lz4:lz4:zstd:zstd". In a word, it aims at making full use of the existing
     ## resources of the system and improving TiKV performance in terms of the current resources.
     # compression-per-level: ["no", "no", "lz4", "lz4", "lz4", "zstd", "zstd"]
+    compression-per-level: ["lz4", "lz4", "lz4", "lz4", "lz4", "zstd", "zstd"]
 
     ## The data block size. RocksDB compresses data based on the unit of block.
     ## Similar to page in other databases, block is the smallest unit cached in block-cache. Note that
@@ -666,7 +674,9 @@ raftdb:
   # enable-pipelined-write: true
   # allow-concurrent-memtable-write: false
   # bytes-per-sync: "1MB"
+  bytes-per-sync: "4MB"
   # wal-bytes-per-sync: "512KB"
+  wal-bytes-per-sync: "4MB"
 
   # info-log-max-size: "1GB"
   # info-log-roll-time: "0"
