@@ -511,6 +511,7 @@ rocksdb:
     ## To deploy multiple TiKV nodes on one physical machine, configure this parameter explicitly.
     ## Otherwise, the OOM problem might occur in TiKV.
     # block-cache-size: "1GB"
+    block-cache-size: "12.8GB"
 
     ## Indicating if we'd put index/filter blocks to the block cache.
     ## If not specified, each "table reader" object will pre-load index/filter block during table
