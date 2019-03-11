@@ -276,6 +276,7 @@ rocksdb:
   ## Represents the maximum number of threads that will concurrently perform a sub-compaction job by
   ## breaking it into multiple, smaller ones running simultaneously.
   # max-sub-compactions: 1
+  max-sub-compactions: 2
 
   ## Number of open files that can be used by the DB.
   ## Value -1 means files opened are always kept open and RocksDB will prefetch index and filter
@@ -505,6 +506,7 @@ rocksdb:
     ## and level0. `target-file-size-base` is used to control the size of a single SST file of level1 to
     ## level6.
     # target-file-size-base: "8MB"
+    target-file-size-base: "16MB"
 
     ## Max bytes for `compaction.max_compaction_bytes`.
     # max-compaction-bytes: "2GB"
