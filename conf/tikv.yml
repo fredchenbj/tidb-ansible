@@ -268,7 +268,6 @@ raftstore:
 
   ## Disable KV DB WAL
   # disable-kv-wal = false
-  disable-kv-wal: true
 
 coprocessor:
   ## When it is set to `true`, TiKV will try to split a Region with table prefix if that Region
@@ -284,13 +283,17 @@ coprocessor:
   ## [b,c), [c,d), [d,e) and the size of [a,b), [b,c), [c,d) will be `region_split_size` (or a
   ## little larger).
   # region-max-size: "144MB"
+  region-max-size: "32MB"
   # region-split-size: "96MB"
+  region-split-size: "20MB"
 
   ## When the number of keys in Region [a,e) exceeds the `region_max_keys`, it will be split into
   ## several Regions [a,b), [b,c), [c,d), [d,e) and the number of keys in [a,b), [b,c), [c,d) will be
   ## `region_split_keys`.
   # region-max-keys: 1440000
+  region-max-keys: 14400
   # region-split-keys: 960000
+  region-split-keys: 9600
 
 rocksdb:
   ## Maximum number of threads of RocksDB background jobs.
@@ -300,6 +303,7 @@ rocksdb:
   ## smaller than that of CPU cores. For example, when importing data, for a machine with a 32-core
   ## CPU, set the value to 28.
   # max-background-jobs: 8
+  max-background-jobs: 8
 
   ## Represents the maximum number of threads that will concurrently perform a sub-compaction job by
   ## breaking it into multiple, smaller ones running simultaneously.
@@ -486,21 +490,25 @@ rocksdb:
     # block-based-bloom-filter: false
 
     # level0-file-num-compaction-trigger: 4
+    level0-file-num-compaction-trigger: 2
 
     ## Soft limit on number of level-0 files.
     ## When the number of SST files of level-0 reaches the limit of `level0-slowdown-writes-trigger`,
     ## RocksDB tries to slow down the write operation, because too many SST files of level-0 can cause
     ## higher read pressure of RocksDB.
     # level0-slowdown-writes-trigger: 20
+    level0-slowdown-writes-trigger: 64
 
     ## Maximum number of level-0 files.
     ## When the number of SST files of level-0 reaches the limit of `level0-stop-writes-trigger`,
     ## RocksDB stalls the new write operation.
     # level0-stop-writes-trigger: 36
+    level0-stop-writes-trigger: 200
 
     ## Amount of data to build up in memory (backed by an unsorted log on disk) before converting to a
     ## sorted on-disk file. It is the RocksDB MemTable size.
     # write-buffer-size: "128MB"
+    write-buffer-size: "32MB"
 
     ## The maximum number of the MemTables. The data written into RocksDB is first recorded in the WAL
     ## log, and then inserted into MemTables. When the MemTable reaches the size limit of
@@ -512,9 +520,11 @@ rocksdb:
     ## "Stall" is a flow control mechanism of RocksDB. When importing data, you can set the
     ## `max-write-buffer-number` value higher, like 10.
     # max-write-buffer-number: 5
+    max-write-buffer-number: 60
 
     ## The minimum number of write buffers that will be merged together before writing to storage.
     # min-write-buffer-number-to-merge: 1
+    min-write-buffer-number-to-merge: 2
 
     ## Control maximum total data size for base level (level 1).
     ## When the level-1 data size reaches the limit value of `max-bytes-for-level-base`, the SST files
@@ -529,13 +539,14 @@ rocksdb:
     ## file compressed from a MemTable. For example, if the file size is 32MB, the proposed value of
     ## `max-bytes-for-level-base` is 32MB * 4 = 128MB.
     # max-bytes-for-level-base: "512MB"
+    max-bytes-for-level-base: "128MB"
 
     ## Target file size for compaction.
     ## The SST file size of level-0 is influenced by the compaction algorithm of `write-buffer-size`
     ## and level0. `target-file-size-base` is used to control the size of a single SST file of level1 to
     ## level6.
     # target-file-size-base: "8MB"
-    target-file-size-base: "16MB"
+    target-file-size-base: "32MB"
 
     ## Max bytes for `compaction.max_compaction_bytes`.
     # max-compaction-bytes: "2GB"
