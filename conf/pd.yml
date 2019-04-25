@@ -51,6 +51,7 @@ schedule:
   # region-schedule-limit: 4
   # replica-schedule-limit: 8
   # merge-schedule-limit: 8
+  merge-schedule-limit: 0
   # tolerant-size-ratio: 5.0
 
 replication:
