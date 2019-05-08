@@ -318,8 +318,6 @@ rocksdb:
   ## `target_file_size_multiplier` for level-based compaction.
   # max-open-files: 40960
 
-  max-bytes-for-level-multiplier: 4
-
   ## Max size of RocksDB's MANIFEST file.
   ## For detailed explanation, please refer to https://github.com/facebook/rocksdb/wiki/MANIFEST
   # max-manifest-file-size: "128MB"
@@ -480,6 +478,8 @@ rocksdb:
     ## Similar to page in other databases, block is the smallest unit cached in block-cache. Note that
     ## the block size specified here corresponds to uncompressed data.
     # block-size: "64KB"
+
+    max-bytes-for-level-multiplier: 4
 
     ## If you're doing point lookups you definitely want to turn bloom filters on. We use bloom filters
     ## to avoid unnecessary disk reads. Default bits_per_key is 10, which yields ~1% false positive
