@@ -11,10 +11,10 @@
         key: "{{ lookup('file', '/home/{{ username }}/.ssh/id_rsa.pub') }}"
         state: present
 
-    - name: update sudoers file
-      lineinfile:
-        dest: /etc/sudoers
-        insertafter: EOF
-        line: '{{ username }} ALL=(ALL) NOPASSWD: ALL'
-        regexp: '^{{ username }} .*'
-        state: present
+  #  - name: update sudoers file
+  #    lineinfile:
+  #      dest: /etc/sudoers
+  #      insertafter: EOF
+  #      line: '{{ username }} ALL=(ALL) NOPASSWD: ALL'
+  #      regexp: '^{{ username }} .*'
+  #      state: present
