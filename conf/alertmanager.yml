@@ -61,4 +61,4 @@ receivers:
 - name: 'tikv-alert-email'
   email_configs:
   - send_resolved: true
-  - to: 'huangxin1@yidian-inc.com,chenfu@yidian-inc.com,wuxinhua@yidian-inc.com,duyuqi@yidian-inc.com'
+    to: 'huangxin1@yidian-inc.com,chenfu@yidian-inc.com,wuxinhua@yidian-inc.com,duyuqi@yidian-inc.com'
