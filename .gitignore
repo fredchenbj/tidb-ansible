@@ -10,3 +10,5 @@ inventorys/
 hosts/
 conf/keys/
 scripts/dests.json
+scripts/check_tikv.sh
+scripts/pd-ctl.sh
