@@ -171,8 +171,12 @@ raftstore:
   ## Maximum number of internal messages to process in a tick.
   # messages-per-tick: 4096
 
+  # raft-base-tick-interval: "1s"
+  raft-base-tick-interval: "2s"
+
   ## Region heartbeat tick interval for reporting to PD.
   # pd-heartbeat-tick-interval: "60s"
+  pd-heartbeat-tick-interval: "3m"
 
   ## Store heartbeat tick interval for reporting to PD.
   # pd-store-heartbeat-tick-interval: "10s"
@@ -185,12 +189,14 @@ raftstore:
 
   ## The interval of triggering Region split check.
   # split-region-check-tick-interval: "10s"
+  split-region-check-tick-interval: "1m"
 
   ## When the number of Raft entries exceeds the max size, TiKV rejects to propose the entry.
   # raft-entry-max-size: "8MB"
 
   ## Interval to GC unnecessary Raft log.
   # raft-log-gc-tick-interval: "10s"
+  raft-log-gc-tick-interval: "1m"
 
   ## Threshold to GC stale Raft log, must be >= 1.
   # raft-log-gc-threshold: 50
@@ -377,11 +383,11 @@ rocksdb:
   ## Allows OS to incrementally sync files to disk while they are being written, asynchronously,
   ## in the background.
   # bytes-per-sync: "1MB"
-  bytes-per-sync: "4MB"
+  # bytes-per-sync: "4MB"
 
   ## Allows OS to incrementally sync WAL to disk while it is being written.
   # wal-bytes-per-sync: "512KB"
-  wal-bytes-per-sync: "4MB"
+  # wal-bytes-per-sync: "4MB"
 
   ## Specify the maximal size of the RocksDB info log file.
   ## If the log file is larger than this config, a new info log file will be created.
@@ -670,7 +676,9 @@ rocksdb:
 
 raftdb:
   # max-background-jobs: 2
+  max-background-jobs: 4
   # max-sub-compactions: 1
+  max-sub-compactions: 2
   # max-open-files: 40960
   # max-manifest-file-size: "20MB"
   # create-if-missing: true
@@ -684,9 +692,9 @@ raftdb:
   # enable-pipelined-write: true
   # allow-concurrent-memtable-write: false
   # bytes-per-sync: "1MB"
-  bytes-per-sync: "4MB"
+  # bytes-per-sync: "4MB"
   # wal-bytes-per-sync: "512KB"
-  wal-bytes-per-sync: "4MB"
+  # wal-bytes-per-sync: "4MB"
 
   # info-log-max-size: "1GB"
   # info-log-roll-time: "0"
