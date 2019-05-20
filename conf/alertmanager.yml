@@ -11,7 +11,7 @@ global:
 
 route:
   # A default receiver
-  receiver: "tikv-alert-email"
+  receiver: "webhook-tikv-dingding"
 
   # The labels by which incoming alerts are grouped together. For example,
   # multiple alerts coming in for cluster=A and alertname=LatencyHigh would
@@ -50,6 +50,11 @@ receivers:
 #   - send_resolved: true
 #     url: 'http://10.0.3.6:28082/v1/alertmanager'
 
+ - name: 'webhook-tikv-dingding'
+   webhook_configs:
+   - send_resolved: true
+     url: 'http://dp.int.yidian-inc.com/webserve/webhook?token=kv2_ZGF0YXBsYXRmb3Jt'
+
 #- name: 'db-alert-slack'
 #  slack_configs:
 #  - channel: '#alerts'
@@ -58,7 +63,7 @@ receivers:
 #    title:   '{{ .CommonLabels.alertname }}'
 #    text:    '{{ .CommonAnnotations.summary }}  {{ .CommonAnnotations.description }}  expr: {{ .CommonLabels.expr }}  http://172.0.0.1:9093/#/alerts'
 
-- name: 'tikv-alert-email'
-  email_configs:
-  - send_resolved: true
-    to: 'huangxin1@yidian-inc.com,chenfu@yidian-inc.com,wuxinhua@yidian-inc.com,duyuqi@yidian-inc.com'
+# - name: 'tikv-alert-email'
+#   email_configs:
+#   - send_resolved: true
+#     to: 'huangxin1@yidian-inc.com,chenfu@yidian-inc.com,wuxinhua@yidian-inc.com,duyuqi@yidian-inc.com'

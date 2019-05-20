@@ -22,15 +22,15 @@ readpool:
   storage:
     ## Size of the thread pool for high-priority operations.
     # high-concurrency: 4
-    high-concurrency: 8
+    high-concurrency: 32
 
     ## Size of the thread pool for normal-priority operations.
     # normal-concurrency: 4
-    normal-concurrency: 8
+    normal-concurrency: 32
 
     ## Size of the thread pool for low-priority operations.
     # low-concurrency: 4
-    low-concurrency: 8
+    low-concurrency: 32
 
     ## Max running high-priority operations of each worker, reject if exceeded.
     # max-tasks-per-worker-high: 2000
