@@ -26,7 +26,7 @@ readpool:
 
     ## Size of the thread pool for normal-priority operations.
     # normal-concurrency: 4
-    normal-concurrency: 32
+    normal-concurrency: 40
 
     ## Size of the thread pool for low-priority operations.
     # low-concurrency: 4
