@@ -153,7 +153,7 @@ storage:
     ##
     ## To deploy multiple TiKV nodes on a single physical machine, configure this parameter
     ## explicitly. Otherwise, the OOM problem might occur in TiKV.
-    # capacity: "1GB"
+    # capacity: "25GB"
 
 pd:
   ## PD endpoints.
