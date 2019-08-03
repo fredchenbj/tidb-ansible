@@ -22,6 +22,6 @@ then
 	USERNAME=$4
 fi
 
-## ./bin/proxy-ctl -pdaddr 10.136.16.1:2379 createTable "test" 4 "cf"
-## ./bin/tikv-bulkload --pd 10.136.16.1:2379 --table-name "test" --shard-bits 4
+## ./resources/bin/proxy-ctl -pdaddr 10.136.16.1:2379 createTable "test" 4 "cf"
+## ./resources/bin/tikv-presplit --pd 10.136.16.1:2379 --table-name "test" --shard-bits 4
 ./resources/bin/proxy-ctl -pdaddr $PD createTable $TABLENAME $SHARDBITS $USERNAME && ./resources/bin/tikv-presplit --pd $PD --table-name $TABLENAME --shard-bits $SHARDBITS
