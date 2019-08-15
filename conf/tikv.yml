@@ -650,7 +650,7 @@ rocksdb:
     ## To deploy multiple TiKV nodes on a single physical machine, configure this parameter explicitly.
     ## The related data of the version information (MVCC) and the index-related data are recorded in
     ## Write CF. In scenarios that include many single table indexes, set this parameter value higher.
-    # block-cache-size: "256MB"
+    block-cache-size: "256MB"
 
     # level0-file-num-compaction-trigger: 4
     # level0-slowdown-writes-trigger: 20
@@ -670,7 +670,7 @@ rocksdb:
     # min-write-buffer-number-to-merge: 1
     # max-bytes-for-level-base: "128MB"
     # target-file-size-base: "8MB"
-    # block-cache-size: "256MB"
+    block-cache-size: "256MB"
     # level0-file-num-compaction-trigger: 1
     # level0-slowdown-writes-trigger: 20
     # level0-stop-writes-trigger: 36
@@ -725,7 +725,7 @@ raftdb:
 
     ## Generally, you can set it from 256MB to 2GB. In most cases, you can use the default value. But
     ## if the system resources are adequate, you can set it higher.
-    # block-cache-size: "256MB"
+    block-cache-size: "256MB"
 
     # level0-file-num-compaction-trigger: 4
     # level0-slowdown-writes-trigger: 20
