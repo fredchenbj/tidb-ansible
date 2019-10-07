@@ -598,6 +598,7 @@ rocksdb:
     ## whether really exists by upper logic instead of bloom filters. But we suggest to set it to false
     ## while using `Raw` mode.
     # optimize-filters-for-hits: true
+    optimize-filters-for-hits: false
 
     ## Options for "Titan" for "Default" Column Family
     titan:
