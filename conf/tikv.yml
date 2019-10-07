@@ -295,17 +295,13 @@ coprocessor:
   ## [b,c), [c,d), [d,e) and the size of [a,b), [b,c), [c,d) will be `region_split_size` (or a
   ## little larger).
   # region-max-size: "144MB"
-  region-max-size: "32MB"
   # region-split-size: "96MB"
-  region-split-size: "20MB"
 
   ## When the number of keys in Region [a,e) exceeds the `region_max_keys`, it will be split into
   ## several Regions [a,b), [b,c), [c,d), [d,e) and the number of keys in [a,b), [b,c), [c,d) will be
   ## `region_split_keys`.
   # region-max-keys: 1440000
-  region-max-keys: 14400
   # region-split-keys: 960000
-  region-split-keys: 9600
 
 rocksdb:
   ## Maximum number of threads of RocksDB background jobs.
@@ -491,8 +487,6 @@ rocksdb:
     ## the block size specified here corresponds to uncompressed data.
     # block-size: "64KB"
 
-    max-bytes-for-level-multiplier: 4
-
     ## If you're doing point lookups you definitely want to turn bloom filters on. We use bloom filters
     ## to avoid unnecessary disk reads. Default bits_per_key is 10, which yields ~1% false positive
     ## rate. Larger `bloom-filter-bits-per-key` values will reduce false positive rate, but increase
@@ -504,7 +498,6 @@ rocksdb:
     # block-based-bloom-filter: false
 
     # level0-file-num-compaction-trigger: 4
-    level0-file-num-compaction-trigger: 4
 
     ## Soft limit on number of level-0 files.
     ## When the number of SST files of level-0 reaches the limit of `level0-slowdown-writes-trigger`,
@@ -598,6 +591,7 @@ rocksdb:
     ## whether really exists by upper logic instead of bloom filters. But we suggest to set it to false
     ## while using `Raw` mode.
     # optimize-filters-for-hits: true
+    optimize-filters-for-hits: false
 
     ## Options for "Titan" for "Default" Column Family
     titan:
