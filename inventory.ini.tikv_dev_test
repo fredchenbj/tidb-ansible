@@ -1,0 +1,108 @@
+## TiDB Cluster Part
+[tidb_servers]
+
+[tikv_servers]
+TiKV1-1 ansible_host=10.136.16.2 deploy_dir=/ssd1/tikv/deploy tikv_port=20161 tikv_status_port=20171
+TiKV1-2 ansible_host=10.136.16.2 deploy_dir=/ssd2/tikv/deploy tikv_port=20162 tikv_status_port=20172
+TiKV1-3 ansible_host=10.136.16.2 deploy_dir=/ssd3/tikv/deploy tikv_port=20163 tikv_status_port=20173
+TiKV1-4 ansible_host=10.136.16.2 deploy_dir=/ssd4/tikv/deploy tikv_port=20164 tikv_status_port=20174
+
+[pd_servers]
+10.136.16.2
+
+[proxy_servers]
+10.136.16.2
+
+[spark_master]
+
+[spark_slaves]
+
+[lightning_server]
+
+[importer_server]
+
+## Monitoring Part
+# prometheus and pushgateway servers
+[monitoring_servers]
+10.136.16.2
+
+[grafana_servers]
+10.136.16.2
+
+# node_exporter and blackbox_exporter servers
+[monitored_servers]
+10.136.16.2
+
+[alertmanager_servers]
+
+[kafka_exporter_servers]
+
+## Binlog Part
+[pump_servers]
+
+[drainer_servers]
+
+## Group variables
+[pd_servers:vars]
+# location_labels = ["zone","rack","host"]
+#location_labels = ["host"]
+
+## Global variables
+[all:vars]
+deploy_dir = /home/worker/tikv/deploy
+
+## Connection
+# ssh via normal user
+ansible_user = worker
+
+cluster_name = tikv_dev_test
+
+tidb_version = latest
+
+# process supervision, [systemd, supervise]
+process_supervision = systemd
+
+timezone = Asia/Shanghai
+
+enable_firewalld = False
+# check NTP service
+enable_ntpd = True
+set_hostname = False
+
+## binlog trigger
+enable_binlog = False
+
+# binlog version, "kafka" or "cluster":
+binlog_version = "cluster"
+
+# kafka cluster address for monitoring, example:
+# kafka_addrs = "192.168.0.11:9092,192.168.0.12:9092,192.168.0.13:9092"
+kafka_addrs = ""
+
+# zookeeper address of kafka cluster for monitoring, example:
+# zookeeper_addrs = "192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181"
+zookeeper_addrs = ""
+
+# store slow query log into seperate file
+enable_slow_query_log = False
+
+# enable TLS authentication in the TiDB cluster
+enable_tls = False
+
+# KV mode
+deploy_without_tidb = True
+
+# Optional: Set if you already have a alertmanager server.
+# Format: alertmanager_host:alertmanager_port
+alertmanager_target = ""
+
+grafana_admin_user = "admin"
+grafana_admin_password = "admin"
+
+
+### Collect diagnosis
+collect_log_recent_hours = 2
+
+enable_bandwidth_limit = True
+# default: 10Mb/s, unit: Kbit/s
+collect_bandwidth_limit = 10000
