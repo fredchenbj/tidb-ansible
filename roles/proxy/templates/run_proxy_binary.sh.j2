@@ -1,0 +1,36 @@
+#!/bin/bash
+set -e
+ulimit -n 1000000
+
+# WARNING: This file was auto-generated. Do not edit!
+#          All your edit might be overwritten!
+DEPLOY_DIR={{ deploy_dir }}
+cd "${DEPLOY_DIR}" || exit 1
+
+{% set my_ip = hostvars[inventory_hostname].ansible_host | default(hostvars[inventory_hostname].inventory_hostname) -%}
+
+{% set all_pds = [] -%}
+{% for host in groups.pd_servers -%}
+  {% set other_ip = hostvars[host].ansible_host | default(hostvars[host].inventory_hostname) -%}
+  {% set other_port = hostvars[host]['pd_client_port'] -%}
+  {% set _ = all_pds.append("%s:%s" % (other_ip, other_port)) -%}
+{% endfor -%}
+
+#echo $$ > "status/{{ role_name }}.pid"
+
+export TZ=${TZ:-/etc/localtime}
+
+echo -n 'sync ... '
+stat=$(time sync)
+echo ok
+echo $stat
+
+echo $$ > "status/{{ role_name }}.pid"
+
+exec bin/tikv-proxy \
+        --name="tikv-proxy" \
+        --config="{{ deploy_dir }}/conf/proxy.toml" \
+	--client-addr="{{ my_ip }}:{{ proxy_port }}" \
+	--pd-addrs="{{ all_pds | join(',') }}" \
+	--log-file="{{ proxy_log_dir }}/{{ proxy_log_filename }}"  2>> "{{ proxy_log_dir }}/{{ proxy_stderr_filename }}"
+

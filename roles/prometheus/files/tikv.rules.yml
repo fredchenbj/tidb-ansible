@@ -230,16 +230,16 @@ groups:
       summary: TiKV scheduler context total
 
   - alert: TiKV_scheduler_command_duration_seconds
-    expr: histogram_quantile(0.99, sum(rate(tikv_scheduler_command_duration_seconds_bucket[1m])) by (le, instance, type)  / 1000)  > 1
+    expr: histogram_quantile(0.999, sum(rate(tikv_scheduler_command_duration_seconds_bucket[1m])) by (le, type)  / 1000)  > 0.3
     for: 1m
     labels:
       env: ENV_LABELS_ENV
       level: warning
-      expr:  histogram_quantile(0.99, sum(rate(tikv_scheduler_command_duration_seconds_bucket[1m])) by (le, instance, type)  / 1000)  > 1
+      expr:  histogram_quantile(0.999, sum(rate(tikv_scheduler_command_duration_seconds_bucket[1m])) by (le, type)  / 1000)  > 0.3
     annotations:
-      description: 'cluster: ENV_LABELS_ENV, instance: {{ $labels.instance }}, values:{{ $value }}'
+      description: 'cluster: ENV_LABELS_ENV, values:{{ $value }}'
       value: '{{ $value }}'
-      summary: TiKV scheduler command duration seconds more than 1s
+      summary: TiKV scheduler command duration seconds p999 more than 0.3s
 
   - alert: TiKV_coprocessor_outdated_request_wait_seconds
     expr: delta( tikv_coprocessor_outdated_request_wait_seconds_count[10m] )  > 0

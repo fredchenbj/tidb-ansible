@@ -337,7 +337,14 @@
           "intervalFactor": 2,
           "legendFormat": "Kafka_exporter",
           "refId": "L"
-        }
+        },
+        {
+          "expr": "count(probe_success{group=\"proxy\"} == 1)",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "Proxy",
+          "refId": "M"
+         }
       ],
       "timeFrom": "1s",
       "title": "",

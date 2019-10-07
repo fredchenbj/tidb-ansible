@@ -1,0 +1,14 @@
+- name: initializing deployment target
+  hosts: all
+  any_errors_fatal: true
+  tags:
+    - always
+  roles:
+    - check_config_dynamic
+
+- name: deploying alertmanager
+  hosts: alertmanager_servers
+  tags:
+    - alertmanager
+  roles:
+    - alertmanager

@@ -1,0 +1,49 @@
+---
+
+- name: rolling update tikv-proxy
+  hosts: proxy_servers
+  any_errors_fatal: true
+  serial: 1
+  tags:
+    - proxy
+
+  pre_tasks:
+    - name: stop Proxy by supervise
+      shell: cd {{ deploy_dir }}/scripts && ./stop_proxy.sh
+      when: process_supervision == 'supervise'
+
+    - name: stop Proxy by systemd
+      systemd: name=proxy-{{ proxy_port }}.service state=stopped
+      become: true
+      when: process_supervision == 'systemd'
+
+    - name: wait for Proxy down
+      wait_for: host={{ ansible_host }} port={{ proxy_port }} state=stopped
+
+  roles:
+    - proxy
+
+  post_tasks:
+    - name: start Proxy by supervise
+      shell: cd {{ deploy_dir }}/scripts && ./start_proxy.sh
+      when: process_supervision == 'supervise'
+
+    - name: start Proxy by systemd
+      systemd: name=proxy-{{ proxy_port }}.service state=started
+      become: true
+      when: process_supervision == 'systemd'
+
+    - name: wait for Proxy up
+      wait_for_pid: |
+        pid_file={{ deploy_dir }}/status/proxy.pid timeout=300
+        thread_name_regex='tikv-proxy' state=present
+      when: deployment_method == 'binary'
+
+    - command: cat {{ deploy_dir }}/status/proxy.pid
+      register: new_proxy_pid
+      ignore_errors: yes
+      changed_when: false
+
+    - name: display new proxy pid
+      debug:
+        msg: "proxy binary or docker pid: {{ new_proxy_pid.stdout }}"
