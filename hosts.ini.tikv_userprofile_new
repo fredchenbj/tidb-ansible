@@ -1,0 +1,9 @@
+[servers]
+10.120.165.5
+10.120.167.21
+10.120.167.23
+10.126.10.24
+
+[all:vars]
+username = worker
+ntp_server = ntpc1-1.yidian.com
