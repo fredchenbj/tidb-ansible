@@ -440,23 +440,23 @@
       retries: 12
       delay: 5
 
-    - name: start grafana_collector by supervise
-      shell: cd {{ deploy_dir }}/scripts && ./start_{{ item }}.sh
-      when: process_supervision == 'supervise'
-      with_items:
-        - grafana_collector
-
-    - name: start grafana_collector by systemd
-      systemd: name=grafana_collector-{{ grafana_collector_port }}.service state=started enabled=yes
-      when: process_supervision == 'systemd'
-      become: true
-
-    - name: wait until the grafana_collector port is up
-      wait_for:
-        host: "{{ ansible_host }}"
-        port: "{{ grafana_collector_port }}"
-        state: started
-        msg: "the grafana_collector port {{ grafana_collector_port }} is not up"
+#    - name: start grafana_collector by supervise
+#      shell: cd {{ deploy_dir }}/scripts && ./start_{{ item }}.sh
+#      when: process_supervision == 'supervise'
+#      with_items:
+#        - grafana_collector
+#
+#    - name: start grafana_collector by systemd
+#      systemd: name=grafana_collector-{{ grafana_collector_port }}.service state=started enabled=yes
+#      when: process_supervision == 'systemd'
+#      become: true
+#
+#    - name: wait until the grafana_collector port is up
+#      wait_for:
+#        host: "{{ ansible_host }}"
+#        port: "{{ grafana_collector_port }}"
+#        state: started
+#        msg: "the grafana_collector port {{ grafana_collector_port }} is not up"
 
     - set_fact:
         grafana_host: "{{ ansible_host }}"
