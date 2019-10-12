@@ -29,7 +29,7 @@ echo $stat
 
 echo $$ > "status/{{ role_name }}.pid"
 
-exec bin/tikv-server \
+exec {{deploy_dir}}/bin/tikv-server \
     --addr "0.0.0.0:{{ tikv_port }}" \
     --advertise-addr "{{ my_ip }}:{{ tikv_port }}" \
     --status-addr "{{ my_ip }}:{{ tikv_status_port }}" \

@@ -30,6 +30,29 @@
   roles:
     - check_config_dynamic
 
+- hosts: proxy_servers
+  tags:
+    - proxy
+  tasks:
+    - name: stop Proxy by systemd
+      systemd: name=proxy-{{ proxy_port }}.service state=stopped
+      become: true
+      when: process_supervision == 'systemd'
+
+    - name: wait for Proxy down (via Port)
+      wait_for: host={{ ansible_host }} port={{ proxy_port }} state=stopped
+
+    - name: wait for Proxy down (via PID)
+      wait_for_pid: pid_file={{ deploy_dir }}/status/proxy.pid timeout=300 state=absent
+
+    - command: cat {{ deploy_dir }}/status/proxy.pid
+      register: old_proxy_pid
+      ignore_errors: yes
+      changed_when: false
+
+    - name: display old proxy pid
+      debug:
+        msg: "proxy binary or docker pid: {{ old_proxy_pid.stdout }}"
 
 - hosts: monitored_servers
   tags:
