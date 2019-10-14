@@ -540,6 +540,6 @@
         msg: "proxy binary or docker pid: {{ new_proxy_pid.stdout }}"
 
     - name: start Monitor by systemd
-      systemd: name=monitor.service state=started enabled=yes
+      systemd: name=monitor-{{ proxy_port }}.service state=started enabled=yes
       become: true
       when: process_supervision == 'systemd'
