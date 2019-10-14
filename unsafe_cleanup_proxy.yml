@@ -14,3 +14,9 @@
       with_items:
         - proxy-{{ proxy_port }}.service
 
+    - name: clean systemd config
+      file: path="/etc/systemd/system/{{ item }}" state=absent
+      become: true
+      when: process_supervision == 'systemd'
+      with_items:
+        - monitor.service
