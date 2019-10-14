@@ -24,4 +24,7 @@
       debug:
         msg: "proxy binary or docker pid: {{ old_proxy_pid.stdout }}"
 
-
+    - name: stop Monitor by systemd
+      systemd: name=monitor.service state=stopped
+      become: true
+      when: process_supervision == 'systemd'
