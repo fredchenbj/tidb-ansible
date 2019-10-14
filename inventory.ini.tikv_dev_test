@@ -49,7 +49,7 @@ TiKV1-4 ansible_host=10.136.16.2 deploy_dir=/ssd4/tikv/deploy tikv_port=20164 ti
 
 ## Global variables
 [all:vars]
-deploy_dir = /home/worker/tikv/deploy
+deploy_dir = /home/worker/tikv/tikv_dev_test
 
 ## Connection
 # ssh via normal user
