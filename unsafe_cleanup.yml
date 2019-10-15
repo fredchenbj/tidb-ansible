@@ -27,7 +27,7 @@
       when: process_supervision == 'systemd'
       with_items:
         - node_exporter-{{ node_exporter_port }}.service
-        - blackbox_exporter-{{ blackbox_exporter_port }}.service
+        
 
 - hosts: alertmanager_servers
   tasks:
@@ -111,6 +111,16 @@
       when: process_supervision == 'systemd'
       with_items:
         - grafana-{{ grafana_port }}.service
+
+- hosts: proxy_servers
+  tasks:
+    - name: clean systemd config
+      file: path="/etc/systemd/system/{{ item }}" state=absent
+      become: true
+      when: process_supervision == 'systemd'
+      with_items:
+        - monitor-{{ proxy_port }}.service
+        - proxy-{{ proxy_port }}.service
 
 - hosts: all
   tasks:
