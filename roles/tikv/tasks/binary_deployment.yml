@@ -8,6 +8,14 @@
   command: mv "{{ tikv_binary.backup_file }}" "{{ backup_dir }}"
   when: tikv_binary.changed and tikv_binary.backup_file is defined
 
+- name: deploy binary ctl
+  copy: src="{{ resources_dir }}/bin/tikv-ctl" dest="{{ deploy_dir }}/bin/" mode=0755 backup=yes
+  register: tikv_binary_ctl
+
+- name: backup binary ctl file
+  command: mv "{{ tikv_binary_ctl.backup_file }}" "{{ backup_dir }}"
+  when: tikv_binary_ctl.changed and tikv_binary_ctl.backup_file is defined
+
 - name: create run script
   template:
     src: "{{ item }}_{{ role_name }}_binary.sh.j2"

@@ -8,6 +8,14 @@
   command: mv "{{ proxy_binary.backup_file }}" "{{ backup_dir }}"
   when: proxy_binary.changed and proxy_binary.backup_file is defined
 
+- name: deploy binary ctl
+  copy: src="{{ resources_dir }}/bin/proxy-ctl" dest="{{ deploy_dir }}/bin/" mode=0755 backup=yes
+  register: proxy_binary_ctl
+
+- name: backup binary ctl file
+  command: mv "{{ proxy_binary_ctl.backup_file }}" "{{ backup_dir }}"
+  when: proxy_binary_ctl.changed and proxy_binary_ctl.backup_file is defined
+
 - name: create startup script
   template:
     src: "{{ item }}_{{ role_name }}_binary.sh.j2"
