@@ -113,6 +113,19 @@
         - grafana-{{ grafana_port }}.service
 
 - hosts: proxy_servers
+  tags:
+    - proxy
+  tasks:
+    - name: clean systemd config
+      file: path="/etc/systemd/system/{{ item }}" state=absent
+      become: true
+      when: process_supervision == 'systemd'
+      with_items:
+        - proxy-{{ proxy_port }}.service
+
+- hosts: proxy_servers
+  tags:
+    - monitor
   tasks:
     - name: clean systemd config
       file: path="/etc/systemd/system/{{ item }}" state=absent
@@ -120,7 +133,6 @@
       when: process_supervision == 'systemd'
       with_items:
         - monitor-{{ proxy_port }}.service
-        - proxy-{{ proxy_port }}.service
 
 - hosts: all
   tasks:

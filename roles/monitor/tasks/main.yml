@@ -1,11 +1,11 @@
 ---
-- name: create deploy directories
-  file: path={{ item }} state=directory mode=0755
-  with_items:
-  - "{{ proxy_status_dir }}"
-
-- name: create config file
-  template: src={{ playbook_dir }}/conf/proxy.toml dest={{ deploy_dir }}/conf/proxy.toml mode=0644 backup=yes
+#- name: create deploy directories
+#  file: path={{ item }} state=directory mode=0755
+#  with_items:
+#  - "{{ proxy_status_dir }}"
+#
+#- name: create config file
+#  template: src={{ playbook_dir }}/conf/proxy.toml dest={{ deploy_dir }}/conf/proxy.toml mode=0644 backup=yes
 
 - include_tasks: "{{ deployment_method }}_deployment.yml"
 

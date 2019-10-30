@@ -54,6 +54,10 @@
       debug:
         msg: "proxy binary or docker pid: {{ old_proxy_pid.stdout }}"
 
+- hosts: proxy_servers
+  tags:
+    - monitor
+  tasks:
     - name: stop Monitor by systemd
       systemd: name=monitor-{{ proxy_port }}.service state=stopped
       become: true

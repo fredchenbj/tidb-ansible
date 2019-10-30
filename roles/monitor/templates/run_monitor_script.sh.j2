@@ -14,7 +14,7 @@ THE_SERVICE={{ cluster_name }}
 THE_RETAIN_DAYS=1
 THE_IP={{ my_ip }}
 THE_PORT={{ proxy_port }}
-THE_LOG_PATH={{ proxy_log_dir }}
+THE_LOG_PATH={{ deploy_dir }}/log
 
 exec python -u proxy_monitor.py ${THE_SERVICE} $THE_LOG_PATH/ ${THE_RETAIN_DAYS} ${THE_IP} ${THE_PORT} 
 

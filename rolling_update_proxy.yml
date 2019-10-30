@@ -47,3 +47,50 @@
     - name: display new proxy pid
       debug:
         msg: "proxy binary or docker pid: {{ new_proxy_pid.stdout }}"
+
+- name: rolling update Proxy Monitor
+  hosts: proxy_servers
+  any_errors_fatal: true
+  serial: 1
+  tags:
+    - monitor
+
+  pre_tasks:
+    - name: stop Proxy Monitor by supervise
+      shell: cd {{ deploy_dir }}/scripts && ./stop_monitor.sh
+      when: process_supervision == 'supervise'
+
+    - name: stop Proxy Monitor by systemd
+      systemd: name=monitor-{{ proxy_port }}.service state=stopped
+      become: true
+      when: process_supervision == 'systemd'
+
+    - name: wait for Proxy Monitor down
+      wait_for_pid: pid_file={{ deploy_dir }}/log/monitor.pid timeout=300 state=absent
+
+  roles:
+    - monitor
+
+  post_tasks:
+    - name: start Monitor by supervise
+      shell: cd {{ deploy_dir }}/scripts && ./start_monitor.sh
+      when: process_supervision == 'supervise'
+
+    - name: start Monitor by systemd
+      systemd: name=monitor-{{ proxy_port }}.service state=started
+      become: true
+      when: process_supervision == 'systemd'
+
+    - name: wait for Monitor up
+      wait_for_pid: pid_file={{ deploy_dir }}/log/monitor.pid timeout=300 state=present
+      when: deployment_method == 'binary'
+
+    - command: cat {{ deploy_dir }}/log/monitor.pid
+      register: monitor_pid
+      ignore_errors: yes
+      changed_when: false
+
+    - name: display proxy monitor pid
+      debug:
+        msg: "proxy binary or docker pid: {{ monitor_pid.stdout }}"
+
