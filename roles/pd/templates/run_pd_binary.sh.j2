@@ -26,7 +26,7 @@ cd "${DEPLOY_DIR}" || exit 1
   {% set _ = all_pd.append("%s=%s://%s:%s" % (other_pd_name, pd_scheme, other_ip, other_port)) -%}
 {% endfor -%}
 
-exec bin/pd-server \
+exec {{ deploy_dir }}/bin/pd-server \
     --name="{{ pd_name_prefix }}{{ my_peer_id }}" \
     --client-urls="{{ pd_scheme }}://{{ my_ip }}:{{ pd_client_port }}" \
     --advertise-client-urls="{{ pd_scheme }}://{{ my_ip }}:{{ pd_client_port }}" \

@@ -22,7 +22,7 @@ cd "${DEPLOY_DIR}" || exit 1
   {% set _ = all_pd.append("%s://%s:%s" % (pd_scheme, pd_ip, pd_port)) -%}
 {% endfor -%}
 
-exec bin/pump \
+exec {{ deploy_dir }}/bin/pump \
     --addr="0.0.0.0:{{ pump_port }}" \
     --advertise-addr="{{ my_ip }}:{{ pump_port }}" \
     --pd-urls="{{ all_pd | join(',') }}" \

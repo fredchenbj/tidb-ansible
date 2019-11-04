@@ -271,7 +271,7 @@
 
     - name: wait until the TiKV status page is available
       uri:
-        url: "http://{{ ansible_host }}:{{ tikv_status_port }}/status"
+        url: "http://{{ ansible_host }}:{{ tikv_port + 20 }}/status"
         return_content: yes
       register: tikv_http_result
       until: tikv_http_result.status == 200
@@ -281,7 +281,7 @@
 
     - name: wait until the TiKV status page is available when enable_tls
       uri:
-        url: "https://{{ ansible_host }}:{{ tikv_status_port }}/status"
+        url: "https://{{ ansible_host }}:{{ tikv_port + 20 }}/status"
         validate_certs: no
         client_cert: "{{ tikv_cert_dir }}/tikv-server-{{ ansible_host }}.pem"
         client_key: "{{ tikv_cert_dir }}/tikv-server-{{ ansible_host }}-key.pem"
@@ -490,3 +490,42 @@
       vars:
         - ansible_become: false
         - ansible_connection: local
+
+- hosts: proxy_servers
+  tags:
+    - proxy
+  tasks:
+    - name: start Proxy by supervise
+      shell: cd {{ deploy_dir }}/scripts && ./start_{{ item }}.sh
+      when: process_supervision == 'supervise'
+      with_items:
+        - proxy
+
+    - name: start Proxy by systemd
+      systemd: name=proxy-{{ proxy_port }}.service state=started enabled=yes
+      become: true
+      when: process_supervision == 'systemd'
+
+    - name: wait for Proxy up
+      wait_for_pid: |
+        pid_file={{ deploy_dir }}/status/proxy.pid timeout=300
+        thread_name_regex='tikv-proxy' state=present
+      when: deployment_method == 'binary'
+
+    - command: cat {{ deploy_dir }}/status/proxy.pid
+      register: new_proxy_pid
+      ignore_errors: yes
+      changed_when: false
+
+    - name: display new proxy pid
+      debug:
+        msg: "proxy binary or docker pid: {{ new_proxy_pid.stdout }}"
+
+- hosts: proxy_servers
+  tags:
+    - monitor
+  tasks:
+    - name: start Monitor by systemd
+      systemd: name=monitor-{{ proxy_port }}.service state=started enabled=yes
+      become: true
+      when: process_supervision == 'systemd'

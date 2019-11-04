@@ -10,6 +10,6 @@ cd "${DEPLOY_DIR}" || exit 1
 exec > >(tee -i -a "{{ blackbox_exporter_log_dir }}/{{ blackbox_exporter_log_filename }}")
 exec 2>&1
 
-exec bin/blackbox_exporter --web.listen-address=":{{ blackbox_exporter_port }}" \
+exec {{ deploy_dir }}/bin/blackbox_exporter --web.listen-address=":{{ blackbox_exporter_port }}" \
     --log.level="{{ blackbox_exporter_log_level }}" \
     --config.file="conf/blackbox.yml"

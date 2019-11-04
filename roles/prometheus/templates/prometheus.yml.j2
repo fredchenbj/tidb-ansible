@@ -92,7 +92,7 @@ alerting:
 {% for host in groups.tikv_servers -%}
   {% set tikv_ip = hostvars[host].ansible_host | default(hostvars[host].inventory_hostname) -%}
   {% set tikv_port = hostvars[host].tikv_port -%}
-  {% set tikv_status_port = hostvars[host].tikv_status_port -%}
+  {% set tikv_status_port = tikv_port + 20 -%}
   {% set _ = tikv_addrs.append("%s:%s" % (tikv_ip, tikv_port)) -%}
   {% set _ = tikv_status_addrs.append("%s:%s" % (tikv_ip, tikv_status_port)) -%}
 {% endfor -%}
