@@ -109,6 +109,12 @@
     - proxy
   roles:
     - proxy
+
+- name: deploying ProxyMonitor cluster
+  hosts: proxy_servers
+  tags:
+    - monitor
+  roles:
     - monitor
 
 - name: deploying PD cluster

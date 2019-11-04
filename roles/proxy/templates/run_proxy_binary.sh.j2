@@ -27,7 +27,7 @@ echo $stat
 
 echo $$ > "status/{{ role_name }}.pid"
 
-exec bin/tikv-proxy \
+exec {{ deploy_dir }}/bin/tikv-proxy \
         --name="tikv-proxy" \
         --config="{{ deploy_dir }}/conf/proxy.toml" \
 	--client-addr="{{ my_ip }}:{{ proxy_port }}" \

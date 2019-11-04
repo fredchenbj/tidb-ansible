@@ -22,7 +22,7 @@ cd "${DEPLOY_DIR}" || exit 1
   {% set _ = all_pd.append("%s://%s:%s" % (pd_scheme, pd_ip, pd_port)) -%}
 {% endfor -%}
 
-exec bin/drainer \
+exec {{ deploy_dir }}/bin/drainer \
     --addr="{{ my_ip }}:{{ drainer_port }}" \
     --pd-urls="{{ all_pd | join(',') }}" \
     --data-dir="{{ drainer_data_dir }}" \

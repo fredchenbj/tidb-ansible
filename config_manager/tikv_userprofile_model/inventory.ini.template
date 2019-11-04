@@ -1,0 +1,124 @@
+## 不部署tidb-server
+[tidb_servers]
+
+# 部署tikv-server服务
+[tikv_servers]
+zhangjizhiyanzhangzheshoufabueyi = 1
+
+[pd_servers]
+
+[proxy_servers]
+
+# 不部署spark
+[spark_master]
+
+# 不部署spark
+[spark_slaves]
+
+# 配置部署prometheus-server， pushgateway
+[monitoring_servers]
+
+# 部署grafana
+[grafana_servers]
+
+# 部署node_exporter and blackbox_exporter servers
+[monitored_servers]
+
+# 部署alertmanager (可以共享)
+[alertmanager_servers]
+
+# 不部署
+[kafka_exporter_servers]
+
+## 不部署 Binlog Part，这大概是是tidb binlog的同步备份的相关服务
+# [pump_servers:children]
+# tidb_servers
+
+# 不部署，这大概是是tidb binlog的同步备份的相关服务
+[drainer_servers]
+
+## Group variables
+[pd_servers:vars]
+pd_client_port = 2379
+pd_peer_port = 2380
+
+# 组变量, label 调度策略
+# location_labels = ["zone","rack","host"]
+location_labels = ["host"]
+
+[proxy_servers:vars]
+proxy_port = 21000
+
+[grafana_servers:vars]
+grafana_port = 3000
+
+[alertmanager_servers:vars]
+alertmanager_port = 9093
+alertmanager_cluster_port = 9094
+
+[monitoring_servers:vars]
+prometheus_port = 9090
+pushgateway_port = 9091
+
+[monitored_servers:vars]
+node_exporter_port = 9100
+blackbox_exporter_port = 9115
+
+# 全局变量, group_vars/all.yml
+[all:vars]
+deploy_dir = /home/worker/tikv/pioneer
+
+## Connection
+# ssh via normal user
+ansible_user = worker
+
+cluster_name = pioneer
+tidb_version = latest 
+tikv_proxy_version = vtest2.1.0
+
+# process supervision, [systemd, supervise]
+process_supervision = systemd
+
+# 时区设置，timezone of deployment region
+timezone = Asia/Shanghai
+set_timezone = True
+
+# 防火墙服务
+enable_firewalld = False
+# check NTP service
+enable_ntpd = True
+
+# ???
+set_hostname = False 
+# CPU, memory and disk performance will not be checked when dev_mode = True  
+dev_mode = False
+
+## binlog trigger
+enable_binlog = False
+# zookeeper address of kafka cluster for binlog, example:
+# zookeeper_addrs = "192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181"
+zookeeper_addrs = ""
+# kafka cluster address for monitoring, example:
+# kafka_addrs = "192.168.0.11:9092,192.168.0.12:9092,192.168.0.13:9092"
+kafka_addrs = ""
+
+# enable TLS authentication in the TiDB cluster
+enable_tls = False 
+
+# KV mode
+deploy_without_tidb = True 
+
+# Optional: Set if you already have a alertmanager server.
+# Format: alertmanager_host:alertmanager_port
+# 设置共享 alertmanager
+alertmanager_target = "" 
+
+grafana_admin_user = "admin"
+grafana_admin_password = "admin"
+
+### Collect diagnosis
+collect_log_recent_hours = 2
+
+enable_bandwidth_limit = True
+# default: 10Mb/s, unit: Kbit/s
+collect_bandwidth_limit = 10000

@@ -8,6 +8,6 @@ DEPLOY_DIR={{ deploy_dir }}
 cd "${DEPLOY_DIR}" || exit 1
 
 LANG=en_US.UTF-8 \
-exec opt/grafana/bin/grafana-server \
+exec {{ deploy_dir }}/opt/grafana/bin/grafana-server \
         --homepath="{{ deploy_dir }}/opt/grafana" \
         --config="{{ deploy_dir }}/opt/grafana/conf/grafana.ini"

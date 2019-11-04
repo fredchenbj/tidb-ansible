@@ -67,6 +67,21 @@
   with_items: "{{ tidb_packages }}"
   when: has_outbound_network
 
+# do actual downloading tikv-proxy
+- name: download tikv-proxy
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ downloads_dir}}/{{ item.name }}-{{ item.version }}.tar.gz"
+    checksum: "{{ item.checksum | default(omit) }}"
+    force: yes
+    validate_certs: no
+  register: get_url_result
+  until: "'OK' in get_url_result.msg or 'file already exists' in get_url_result.msg"
+  retries: 2
+  delay: "{{ retry_stagger | random + 3 }}"
+  with_items: "{{ tikv_proxy_packages }}"
+  when: has_outbound_network
+
 - name: download tidb toolkit binary
   get_url:
     url: "{{ item.url }}"
@@ -148,6 +163,13 @@
     warn: no
   with_items: "{{ tidb_packages }}"
 
+- name: unarchive tikv proxy binary
+  shell: ls -1 {{ item.name }}-{{ item.version }}.tar.gz | xargs -n1 tar xzf
+  args:
+    chdir: "{{ downloads_dir }}"
+    warn: no
+  with_items: "{{ tikv_proxy_packages }}"
+
 - name: unarchive tidb toolkit binary
   shell: ls -1 {{ item.name }}-{{ item.version }}.tar.gz | xargs -n1 tar xzf
   args:
@@ -166,6 +188,11 @@
   shell: >
     cp -v {{ downloads_dir }}/{{ item.name }}-{{ item.version}}*/bin/* "{{ resources_dir }}/bin/"
   with_items: "{{ tidb_packages }}"
+
+- name: cp tikv-proxy binary
+  shell: >
+    cp -v {{ downloads_dir }}/{{ item.name }}-{{ item.version }}*/bin/* "{{ resources_dir }}/bin/"
+  with_items: "{{ tikv_proxy_packages }}"
 
 - name: cp tidb toolkit binary
   shell: >

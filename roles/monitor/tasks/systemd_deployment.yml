@@ -5,4 +5,4 @@
     name: systemd
   vars:
     this_role_name: monitor
-    service_name: monitor 
+    service_name: monitor-{{ proxy_port }} 

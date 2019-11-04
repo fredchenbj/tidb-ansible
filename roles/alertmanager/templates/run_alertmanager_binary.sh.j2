@@ -10,7 +10,7 @@ cd "${DEPLOY_DIR}" || exit 1
 exec > >(tee -i -a "{{ alertmanager_log_dir }}/{{ alertmanager_log_filename }}")
 exec 2>&1
 
-exec bin/alertmanager \
+exec {{ deploy_dir }}/bin/alertmanager \
     --config.file="conf/alertmanager.yml" \
     --storage.path="{{ alertmanager_data_dir }}" \
     --data.retention=120h \
