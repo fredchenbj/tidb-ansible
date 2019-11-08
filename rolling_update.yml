@@ -91,7 +91,7 @@
     - name: Failed when one node of pd is unhealthy
       fail:
         msg: "Some pd nodes are unhealthy"
-      when: 
+      when:
         - not enable_tls|default(false)
         - "'false' in pd_status.content"
 
@@ -287,6 +287,10 @@
       when: enable_tls|default(false)
 
     - include_tasks: "common_tasks/add_evict_leader_scheduler.yml"
+
+    - name: check Safety if Continue
+      fail: msg="evict leaders fail, please check, will exit"
+      when: "{{ leader_count }}" > 0
 
     - name: stop TiKV by supervise
       shell: cd {{ deploy_dir }}/scripts && ./stop_tikv.sh

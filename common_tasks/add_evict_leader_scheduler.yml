@@ -61,7 +61,7 @@
     status_code: 200
   register: store_info
   until: (store_info.json.status.leader_count is defined and store_info.json.status.leader_count|int < 1) or store_info.json.status.leader_count is not defined
-  retries: 18
+  retries: 1800
   delay: 10
   failed_when: false
   when: not enable_tls|default(false)
@@ -78,17 +78,23 @@
     status_code: 200
   register: store_info_tls
   until: (store_info_tls.json.status.leader_count is defined and store_info_tls.json.status.leader_count|int < 1) or store_info_tls.json.status.leader_count is not defined
-  retries: 18
+  retries: 1800
   delay: 10
   failed_when: false
   when: enable_tls|default(false)
 
 - name: display leader_count
+  set_fact:
+    leader_count: "{{ store_info.json.status.leader_count|default(1) }}"
   debug:
     msg: "leader_count: {{ store_info.json.status.leader_count|default(0) }}"
+    var: leader_count
   when: not enable_tls|default(false)
 
 - name: display leader_count when enable_tls|default(false)
+  set_fact:
+    leader_count: "{{ store_info.json.status.leader_count|default(1) }}"
   debug:
-    msg: "leader_count: {{ store_info_tls.json.status.leader_count|default(0) }}"
+    msg: "leader_count: {{ store_info.json.status.leader_count|default(0) }}"
+    var: leader_count
   when: enable_tls|default(false)
