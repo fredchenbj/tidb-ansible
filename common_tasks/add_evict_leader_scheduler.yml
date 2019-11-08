@@ -84,17 +84,14 @@
   when: enable_tls|default(false)
 
 - name: display leader_count
-  set_fact:
-    leader_count: "{{ store_info.json.status.leader_count|default(1) }}"
   debug:
     msg: "leader_count: {{ store_info.json.status.leader_count|default(0) }}"
-    var: leader_count
   when: not enable_tls|default(false)
 
 - name: display leader_count when enable_tls|default(false)
-  set_fact:
-    leader_count: "{{ store_info.json.status.leader_count|default(1) }}"
   debug:
     msg: "leader_count: {{ store_info.json.status.leader_count|default(0) }}"
-    var: leader_count
   when: enable_tls|default(false)
+
+- set_fact:
+    leader_count: "{{ store_info.json.status.leader_count|default(2147483647) }}"
