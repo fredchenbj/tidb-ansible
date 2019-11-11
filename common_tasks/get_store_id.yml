@@ -16,7 +16,6 @@
 
 - name: check all stores status
   shell: |
-      #      for i in $(seq 0 "{{ count-1 }}"); do
       {% for store in "{{ stores_info.json|json_query(stores_qstr) }}" %}
         if "{{store.state_name}}" != "Up"; then
           echo "false"
