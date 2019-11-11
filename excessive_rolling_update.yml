@@ -335,7 +335,7 @@
 
     - name: wait until the TiKV status page is available
       uri:
-        url: "http://{{ ansible_host }}:{{ tikv_status_port }}/status"
+        url: "http://{{ ansible_host }}:{{ tikv_port + 20 }}/status"
         return_content: yes
       register: tikv_http_result
       until: tikv_http_result.status == 200
@@ -345,7 +345,7 @@
 
     - name: wait until the TiKV status page is available when enable_tls
       uri:
-        url: "https://{{ ansible_host }}:{{ tikv_status_port }}/status"
+        url: "https://{{ ansible_host }}:{{ tikv_port + 20 }}/status"
         validate_certs: no
         client_cert: "{{ tikv_cert_dir }}/tikv-server-{{ ansible_host }}.pem"
         client_key: "{{ tikv_cert_dir }}/tikv-server-{{ ansible_host }}-key.pem"
