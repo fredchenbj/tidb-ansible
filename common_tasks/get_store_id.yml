@@ -16,20 +16,20 @@
 
 - name: check all stores status
   shell: |
-      {% for store in "{{ stores_info.json|json_query(stores_qstr) }}" %}
-        if "{{store.state_name}}" != "Up"; then
+      for status in "{{ stores_info.json|json_query(stores_qstr) }}"; do
+        if x"$status" != x"Up"; then
           echo "false"
           exit
         fi
-      {% endfor %}
+      done
       echo "true"
   vars:
-    stores_qstr: "stores"
+    stores_qstr: "stores[].store.state_name"
   register: is_healthy
 
 - name: display store id
   debug:
-    var: store_id
+    var: store_id, is_healthy.stdout
 
 - name: check store_id is defined
   fail:
