@@ -286,13 +286,15 @@
     - include_tasks: "common_tasks/get_store_id_tls.yml"
       when: enable_tls|default(false)
 
+    - name: check Status health if Continue
+      fail: msg="some store status not health, please check, will exit"
+      when: is_healthy.stdout == 'false'
+
     - include_tasks: "common_tasks/add_evict_leader_scheduler.yml"
 
     - name: check Safety if Continue
-      fail: msg="evict leaders fail, please check, will exit"
-      when:
-        - leader_count == 0
-        - is_healthy == 'true'
+      fail: msg="evict leaders fail, leader_count:{{leader_count}}, please check, will exit"
+      when: leader_count|int > 0
 
     - name: stop TiKV by supervise
       shell: cd {{ deploy_dir }}/scripts && ./stop_tikv.sh

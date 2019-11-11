@@ -16,7 +16,7 @@
 
 - name: check all stores status
   shell: |
-      for status in "{{ stores_info.json|json_query(stores_qstr) }}"; do
+      for status in {{ stores_info.json|json_query(stores_qstr)|join(' ') }}; do
         if x"$status" != x"Up"; then
           echo "false"
           exit
