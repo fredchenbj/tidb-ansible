@@ -131,7 +131,7 @@ storage:
     ##
     ## The rest of config in the storage.block-cache session is effective only when shared block
     ## cache is on.
-    # shared: true
+    shared: true
 
     ## Size of the shared block cache. Normally it should be tuned to 30%-50% of system's total
     ## memory. When the config is not set, it is decided by the sum of the following fields or
@@ -143,7 +143,7 @@ storage:
     ##
     ## To deploy multiple TiKV nodes on a single physical machine, configure this parameter
     ## explicitly. Otherwise, the OOM problem might occur in TiKV.
-    # capacity: "1GB"
+    capacity: "6.5GB"
 
 pd:
   ## PD endpoints.
