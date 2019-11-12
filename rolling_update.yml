@@ -281,9 +281,15 @@
     - include_tasks: "common_tasks/get_pd_tikv_addr.yml"
 
     - include_tasks: "common_tasks/get_store_id.yml"
+      until: is_healthy.stdout == 'true'
+      retries: 20
+      delay: 1
       when: not enable_tls|default(false)
 
     - include_tasks: "common_tasks/get_store_id_tls.yml"
+      until: is_healthy.stdout == 'true'
+      retries: 20
+      delay: 1
       when: enable_tls|default(false)
 
     - name: check Status health if Continue
