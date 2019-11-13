@@ -1,0 +1,20 @@
+---
+
+- name: check the store status
+  shell: |
+      status=$(curl "http://{{ pd_addr }}/pd/api/v1/store/{{ store_id }}" 2>/dev/null | grep state_name | awk '{print $NF}' | sed 's/"//g')
+      if [ $? -ne 0 -o x"$status" != x"Up" ]; then
+        echo "false"
+      else
+        echo "true"
+      fi
+  vars:
+    stores_qstr: "store.state_name"
+  register: is_healthy
+  until: is_healthy.stdout == 'true'
+  retries: 20
+  delay: 2
+
+- name: display store id
+  debug:
+    var: store_id, is_healthy.stdout

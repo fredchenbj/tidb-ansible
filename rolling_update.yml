@@ -91,7 +91,7 @@
     - name: Failed when one node of pd is unhealthy
       fail:
         msg: "Some pd nodes are unhealthy"
-      when: 
+      when:
         - not enable_tls|default(false)
         - "'false' in pd_status.content"
 
@@ -286,7 +286,15 @@
     - include_tasks: "common_tasks/get_store_id_tls.yml"
       when: enable_tls|default(false)
 
+    - name: check Status health if Continue
+      fail: msg="some store status not health, please check, will exit"
+      when: is_healthy.stdout == 'false'
+
     - include_tasks: "common_tasks/add_evict_leader_scheduler.yml"
+
+    - name: check Safety if Continue
+      fail: msg="evict leaders fail, leader_count:{{leader_count}}, please check, will exit"
+      when: leader_count|int > 0
 
     - name: stop TiKV by supervise
       shell: cd {{ deploy_dir }}/scripts && ./stop_tikv.sh
@@ -335,7 +343,7 @@
 
     - name: wait until the TiKV status page is available
       uri:
-        url: "http://{{ ansible_host }}:{{ tikv_status_port }}/status"
+        url: "http://{{ ansible_host }}:{{ tikv_port + 20 }}/status"
         return_content: yes
       register: tikv_http_result
       until: tikv_http_result.status == 200
@@ -345,7 +353,7 @@
 
     - name: wait until the TiKV status page is available when enable_tls
       uri:
-        url: "https://{{ ansible_host }}:{{ tikv_status_port }}/status"
+        url: "https://{{ ansible_host }}:{{ tikv_port + 20 }}/status"
         validate_certs: no
         client_cert: "{{ tikv_cert_dir }}/tikv-server-{{ ansible_host }}.pem"
         client_key: "{{ tikv_cert_dir }}/tikv-server-{{ ansible_host }}-key.pem"
@@ -366,6 +374,7 @@
         msg: "tikv binary or docker pid: {{ new_tikv_pid.stdout }}"
 
     - include_tasks: "common_tasks/remove_evict_leader_scheduler.yml"
+    - include_tasks: "common_tasks/get_store_id_status.yml"
 
 
 - name: rolling update pump cluster
