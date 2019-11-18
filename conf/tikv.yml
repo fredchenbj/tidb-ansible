@@ -279,6 +279,8 @@ raftstore:
 
   ## Disable KV DB WAL
   # disable-kv-wal = false
+  
+  hibernate-regions: true
 
 coprocessor:
   ## When it is set to `true`, TiKV will try to split a Region with table prefix if that Region
