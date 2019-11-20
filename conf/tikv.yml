@@ -215,11 +215,11 @@ raftstore:
   ## or not. To reduce the cost of scanning data in the checking process, you can set the value to
   ## 32MB during checking and set it back to the default value in normal operations.
   # region-split-check-diff: "6MB"
-  region-split-check-diff: "32MB"
+  region-split-check-diff: "64MB"
 
   ## The interval of triggering Region split check.
   # split-region-check-tick-interval: "10s"
-  split-region-check-tick-interval: "1m"
+  split-region-check-tick-interval: "10m"
 
   ## When the number of Raft entries exceeds the max size, TiKV rejects to propose the entry.
   # raft-entry-max-size: "8MB"
@@ -298,16 +298,12 @@ coprocessor:
   ## little larger).
   # region-max-size: "144MB"
   # region-split-size: "96MB"
-  region-max-size: "384MB"
-  region-split-size: "256MB"
 
   ## When the number of keys in Region [a,e) exceeds the `region_max_keys`, it will be split into
   ## several Regions [a,b), [b,c), [c,d), [d,e) and the number of keys in [a,b), [b,c), [c,d) will be
   ## `region_split_keys`.
   # region-max-keys: 1440000
   # region-split-keys: 960000
-  region-max-keys: 3840000
-  region-split-keys: 2560000
 
 rocksdb:
   ## Maximum number of threads of RocksDB background jobs.
