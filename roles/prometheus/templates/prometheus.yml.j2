@@ -105,10 +105,13 @@ alerting:
 {% endfor -%}
 
 {% set proxy_addrs = [] -%}
+{% set proxy_status_addrs = [] -%}
 {% for host in groups.proxy_servers -%}
   {% set proxy_ip = hostvars[host].ansible_host | default(hostvars[host].inventory_hostname) -%}
   {% set proxy_port = hostvars[host].proxy_port -%}
+  {% set proxy_status_port = hostvars[host].proxy_status_port -%}
   {% set _ = proxy_addrs.append("%s:%s" % (proxy_ip, proxy_port)) -%}
+  {% set _ = proxy_status_addrs.append("%s:%s" % (proxy_ip, proxy_status_port)) -%}
 {% endfor -%}
 
 scrape_configs:
@@ -172,6 +175,14 @@ scrape_configs:
     - targets:
 {% for pd_addr in pd_addrs %}
       - '{{ pd_addr }}'
+{% endfor %}
+
+  - job_name: "proxy"
+    honor_labels: true # don't overwrite job & instance labels
+    static_configs:
+    - targets:
+{% for proxy_addr in proxy_status_addrs %}
+      - '{{ proxy_addr }}'
 {% endfor %}
 
 {% if enable_binlog|default(false) %}
