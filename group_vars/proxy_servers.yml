@@ -1,3 +1,4 @@
 ---
 
-# proxy_port: 21000
+  proxy_port: 21000
+  proxy_status_port: 22000

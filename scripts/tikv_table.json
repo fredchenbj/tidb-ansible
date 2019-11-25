@@ -102,18 +102,18 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.999, sum(rate(tikv_grpc_msg_duration_seconds_bucket{type=\"raw_batch_get\"}[1m])) by (le, type))",
+              "expr": "histogram_quantile(0.999, sum(rate(tikv_proxy_table_cmd_seconds_bucket{type=\"raw_batch_get\"}[1m])) by (le, type, table))",
               "format": "time_series",
               "interval": "15s",
               "intervalFactor": 2,
-              "legendFormat": "{{type}}",
+              "legendFormat": "{{table}}",
               "refId": "A"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "999% Grpc messge duration",
+          "title": "999% proxy table cmd duration",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -188,18 +188,18 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.999, sum(rate(tikv_scheduler_command_duration_seconds_bucket{type=\"raw_batch_get\"}[1m])) by (le, type))",
+              "expr": "histogram_quantile(0.999, sum(rate(tikv_client_go_rawkv_table_cmd_seconds_bucket{type=\"raw_batch_get\"}[1m])) by (le, type, table))",
               "format": "time_series",
               "interval": "15s",
               "intervalFactor": 2,
-              "legendFormat": "{{type}}",
+              "legendFormat": "{{table}}",
               "refId": "A"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "999% Scheduler command duration",
+          "title": "999% client go table command duration",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -268,18 +268,97 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.999, sum(rate(tikv_scheduler_processing_read_duration_seconds_bucket{type=\"raw_batch_get\"}[1m])) by (le, type))",
+              "expr": "histogram_quantile(0.999, sum(rate(tikv_table_grpc_command_duration_bucket{type=\"raw_batch_get\"}[1m])) by (le, type, table))",
               "format": "time_series",
               "interval": "15s",
               "intervalFactor": 2,
-              "legendFormat": "{{type}}",
+              "legendFormat": "{{table}}",
               "refId": "A"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "999% Process read duration",
+          "title": "999% table grpc read duration",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_TEST-CLUSTER}",
+          "fill": 1,
+          "id": 29,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": 300,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "histogram_quantile(0.999, sum(rate(tikv_table_snap_processing_read_duration_bucket{type=\"raw_batch_get\"}[1m])) by (le, type, table))",
+              "format": "time_series",
+              "interval": "15s",
+              "intervalFactor": 2,
+              "legendFormat": "{{table}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "999% table snap process read duration",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -562,6 +641,6 @@
     ]
   },
   "timezone": "",
-  "title": "TiKV Read Flow",
+  "title": "TiKV Table Read Flow",
   "version": 2
 }
