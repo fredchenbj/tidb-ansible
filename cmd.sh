@@ -14,5 +14,11 @@ resources/bin/pd-ctl -u $PD -d store --jq=".stores[]| { id: .store.id, adress: .
 PD=http://10.120.167.23:2379
 ## tikv_common_two
 PD=http://10.136.163.3:2379
+## tikv_userprofile_model
+PD=http://10.136.163.5:2379
+## tikv_userprofile_click
+PD=http://10.136.134.11:2379
 
 resources/bin/tikv-ctl --pd http://10.136.163.2:2379 compact-table -t 22DD0000 -s 2 -n 1
+
+./resources/bin/proxy-ctl -pdaddr $PD createTableFull tableName shardBits username

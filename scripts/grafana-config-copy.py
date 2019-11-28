@@ -34,6 +34,8 @@ src = dict(
                 "tikv_summary": 'tikv_summary.json',
                 "tikv_details": 'tikv_details.json',
                 "tikv_read_flow": 'tikv_read_flow.json',
+                "tikv_table": 'tikv_table.json',
+                "tikv_proxy": 'tikv_proxy.json',
                 "tikv_trouble_shot": 'tikv_trouble_shooting.json',
                 "binlog": "binlog.json",
                 "overview": 'overview.json',
