@@ -131,6 +131,8 @@ storage:
   ## When the pending write bytes exceeds this threshold, the "scheduler too busy" error is displayed.
   # scheduler-pending-write-threshold: "100MB"
 
+  kv-read-slow-perf-context-threshold: "10ms"
+
   block-cache:
     ## Whether to create a shared block cache for all RocksDB column families.
     ##

@@ -53,7 +53,7 @@ receivers:
  - name: 'webhook-tikv-dingding'
    webhook_configs:
    - send_resolved: true
-   url: 'http://alert-webhook.int.yidian-inc.com:42345'
+     url: 'http://alert-webhook.int.yidian-inc.com:42345/webhook'
 
 #- name: 'db-alert-slack'
 #  slack_configs:

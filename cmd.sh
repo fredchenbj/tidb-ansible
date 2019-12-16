@@ -3,12 +3,15 @@ resources/bin/pd-ctl -u $PD -d store --jq=".stores[].store | { id, address, stat
 resources/bin/pd-ctl -u $PD -d operator add transfer-peer 9 1 6
 
 
+./resources/bin/tikv-presplit --pd $PD --table-id 6D657461 --shard-bits 0
 ./resources/bin/proxy-ctl -pdaddr $PD getTableID
 ./resources/bin/proxy-ctl -pdaddr $PD createTable tableName tableID shardKey username
 ./resources/bin/proxy-ctl -pdaddr $PD setConfig tableID property1 value1 property2 value2 ...
+./resources/bin/proxy-ctl -pdaddr $PD createTableFull tableName shardBits username property1 value1 property2 value2 ...
 ./resources/bin/tikv-presplit --pd $PD --table-id tableID --shard-bits $SHARDBITS
 
-resources/bin/pd-ctl -u $PD -d store --jq=".stores[]| { id: .store.id, adress: .store.address, state: .store.state_name, leader_w: .status.leader_weight, region_w: .status.region_weight }"
+
+./resources/bin/pd-ctl -u $PD -d store --jq=".stores[]| { id: .store.id, adress: .store.address, state: .store.state_name, leader_w: .status.leader_weight, region_w: .status.region_weight }"
 
 ## tikv_userprofile_new
 PD=http://10.120.167.23:2379
@@ -18,7 +21,12 @@ PD=http://10.136.163.3:2379
 PD=http://10.136.163.5:2379
 ## tikv_userprofile_click
 PD=http://10.136.134.11:2379
+## tikv_userprofile_third
+PD=http://10.136.16.24:2379
 
-resources/bin/tikv-ctl --pd http://10.136.163.2:2379 compact-table -t 22DD0000 -s 2 -n 1
+./resources/bin/tikv-ctl --pd http://10.136.163.2:2379 compact-table -t 22DD0000 -s 2 -n 1
 
 ./resources/bin/proxy-ctl -pdaddr $PD createTableFull tableName shardBits username
+
+## tikv_userprofile_new
+./resources/bin/tikv-ctl --pd http://10.120.167.23:2379 compact-table -t 2D000000 -s 7 -n 1
